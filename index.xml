@@ -1,31 +1,51 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Blowfish</title>
-    <link>http://lazysapphire.github.io/</link>
-    <description>Recent content on Blowfish</description>
+    <title>HOMEPAGE</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on HOMEPAGE</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>© 2024 </copyright>
-    <lastBuildDate>Wed, 20 Dec 2023 23:26:31 +0800</lastBuildDate><atom:link href="http://lazysapphire.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>© 2024 LazySapphire</copyright>
+    <lastBuildDate>Wed, 20 Dec 2023 23:26:31 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>about</title>
-      <link>http://lazysapphire.github.io/about/</link>
+      <link>http://localhost:1313/about/</link>
       <pubDate>Wed, 20 Dec 2023 23:26:31 +0800</pubDate>
       
-      <guid>http://lazysapphire.github.io/about/</guid>
+      <guid>http://localhost:1313/about/</guid>
       <description>​ 在这里编辑正文内容</description>
       
     </item>
     
     <item>
+      <title>【环境配置】开源项目OfflineRL</title>
+      <link>http://localhost:1313/posts/2024/offlinrrl%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Mon, 30 Aug 2021 13:44:28 +0900</pubDate>
+      
+      <guid>http://localhost:1313/posts/2024/offlinrrl%E9%85%8D%E7%BD%AE/</guid>
+      <description>数据集：D4RL</description>
+      
+    </item>
+    
+    <item>
       <title>first</title>
-      <link>http://lazysapphire.github.io/post/first/</link>
+      <link>http://localhost:1313/posts/first/</link>
       <pubDate>Sun, 25 Oct 2015 08:36:54 -0700</pubDate>
       
-      <guid>http://lazysapphire.github.io/post/first/</guid>
+      <guid>http://localhost:1313/posts/first/</guid>
       <description>Hello Hugo #aaa bbb ccc </description>
       
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://localhost:1313/thoughts/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/thoughts/</guid>
+      <description>hello</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/thoughts/featured.jpeg" />
     </item>
     
   </channel>
