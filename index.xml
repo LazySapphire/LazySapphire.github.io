@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blowfish</title>
+    <link>http://lazysapphire.github.io/</link>
+    <description>Recent content on Blowfish</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© 2024 </copyright>
+    <lastBuildDate>Wed, 20 Dec 2023 23:26:31 +0800</lastBuildDate><atom:link href="http://lazysapphire.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>about</title>
+      <link>http://lazysapphire.github.io/about/</link>
+      <pubDate>Wed, 20 Dec 2023 23:26:31 +0800</pubDate>
+      
+      <guid>http://lazysapphire.github.io/about/</guid>
+      <description>​ 在这里编辑正文内容</description>
+      
+    </item>
+    
+    <item>
+      <title>first</title>
+      <link>http://lazysapphire.github.io/post/first/</link>
+      <pubDate>Sun, 25 Oct 2015 08:36:54 -0700</pubDate>
+      
+      <guid>http://lazysapphire.github.io/post/first/</guid>
+      <description>Hello Hugo #aaa bbb ccc </description>
+      
+    </item>
+    
+  </channel>
+</rss>
