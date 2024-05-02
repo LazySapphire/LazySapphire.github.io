@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Resume on HOMEPAGE</title>
+    <link>http://localhost:1313/tags/resume/</link>
+    <description>Recent content in Resume on HOMEPAGE</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© 2024 LazySapphire</copyright>
+    <lastBuildDate>Wed, 01 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/resume/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>个人简历</title>
+      <link>http://localhost:1313/resume/</link>
+      <pubDate>Wed, 01 May 2024 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/resume/</guid>
+      <description>你好！我目前是一名在读研究生，就读于南方科技大学，电子信息专业。主要研究方向是机器人灵巧手，深度强化学习和模仿学习。主要工作包括搭建灵巧手硬件平台、设计DRL+IL算法等。</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/resume/featured.jpeg" />
+    </item>
+    
+  </channel>
+</rss>
