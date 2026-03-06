@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="scroll-smooth" data-default-appearance="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MimicTerrains - Protected</title>
+  <meta name="description" content="MimicTerrains Research Notes - Password Protected" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #e0e0e0;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 800px;
+      padding: 20px;
+    }
+
+    /* Password Screen */
+    .password-screen {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 60px 40px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    .lock-icon {
+      font-size: 64px;
+      margin-bottom: 20px;
+      opacity: 0.8;
+    }
+
+    .password-screen h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .password-screen p {
+      color: #888;
+      margin-bottom: 30px;
+      font-size: 1.1rem;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 10px;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    #pwd {
+      flex: 1;
+      padding: 15px 20px;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.3);
+      color: #fff;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    #pwd:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+    }
+
+    #pwd::placeholder {
+      color: #666;
+    }
+
+    button {
+      padding: 15px 30px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .error-msg {
+      color: #ff6b6b;
+      margin-top: 15px;
+      font-size: 14px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .error-msg.show {
+      opacity: 1;
+    }
+
+    /* Content Screen */
+    .content-screen {
+      display: none;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    .content-screen.show {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .article-header {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+    }
+
+    .article-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .meta {
+      color: #888;
+      font-size: 0.9rem;
+    }
+
+    .article-content {
+      line-height: 1.8;
+      font-size: 1.1rem;
+    }
+
+    .article-content img {
+      width: 100%;
+      max-width: 100%;
+      border-radius: 12px;
+      margin: 30px 0;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .protected-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 107, 107, 0.2);
+      color: #ff6b6b;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #888;
+      text-decoration: none;
+      margin-bottom: 20px;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: #667eea;
+    }
+
+    /* Loading animation */
+    .loading {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    button.loading-active .loading {
+      display: inline-block;
+    }
+
+    button.loading-active .btn-text {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Password Screen -->
+    <div class="password-screen" id="passwordScreen">
+      <div class="lock-icon">🔒</div>
+      <h1>MimicTerrains</h1>
+      <p>Research Notes - Password Protected</p>
+
+      <div class="input-group">
+        <input
+          type="password"
+          id="pwd"
+          placeholder="Enter password..."
+          onkeydown="if(event.key==='Enter') unlock()"
+        />
+        <button onclick="unlock()">
+          <span class="loading"></span>
+          <span class="btn-text">Unlock</span>
+        </button>
+      </div>
+
+      <div class="error-msg" id="errorMsg">
+        Incorrect password. Please try again.
+      </div>
+    </div>
+
+    <!-- Content Screen -->
+    <div class="content-screen" id="contentScreen">
+      <a href="/" class="back-link">
+        ← Back to Home
+      </a>
+
+      <div class="protected-badge">
+        <span>🔒</span>
+        <span>Protected Content</span>
+      </div>
+
+      <div class="article-header">
+        <h1>MimicTerrains</h1>
+        <div class="meta">Research Notes • 2026</div>
+      </div>
+
+      <div class="article-content">
+        <p>
+          This is a protected research note for the MimicTerrains project.
+          The content below contains preliminary research data and visualizations.
+        </p>
+
+        <img src="featured.jpg" alt="MimicTerrains Research Visualization" />
+
+        <p>
+          <em>Image: Research visualization and experimental data capture.</em>
+        </p>
+
+        <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 30px 0;">
+
+        <p style="color: #888; font-size: 0.9rem;">
+          This page is protected. Please do not share the password or content without permission.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    async function unlock() {
+      const btn = document.querySelector('button');
+      const errorMsg = document.getElementById('errorMsg');
+
+      btn.classList.add('loading-active');
+      errorMsg.classList.remove('show');
+
+      const password = document.getElementById('pwd').value;
+
+      // Simulate slight delay for better UX
+      await new Promise(r => setTimeout(r, 300));
+
+      const hash = await crypto.subtle.digest(
+        "SHA-256",
+        new TextEncoder().encode(password)
+      );
+
+      const hex = Array.from(new Uint8Array(hash))
+        .map(b => b.toString(16).padStart(2, '0'))
+        .join('');
+
+      // SHA256("mimic_in_terrains") = eb704addeef9fecfc24c8362da821d1602b8ed346c98e181c2f50b09669018a9
+      const correct = "eb704addeef9fecfc24c8362da821d1602b8ed34";
+
+      btn.classList.remove('loading-active');
+
+      if (hex.startsWith(correct)) {
+        document.getElementById('passwordScreen').style.display = 'none';
+        document.getElementById('contentScreen').classList.add('show');
+
+        // Update URL hash to indicate unlocked state (optional)
+        history.replaceState(null, null, '#unlocked');
+      } else {
+        errorMsg.classList.add('show');
+        document.getElementById('pwd').value = '';
+        document.getElementById('pwd').focus();
+      }
+    }
+
+    // Focus input on load
+    window.onload = () => {
+      document.getElementById('pwd').focus();
+
+      // Check if already unlocked via session (optional enhancement)
+      if (sessionStorage.getItem('mimicterrains_unlocked') === 'true') {
+        document.getElementById('passwordScreen').style.display = 'none';
+        document.getElementById('contentScreen').classList.add('show');
+      }
+    };
+
+    // Remember unlocked state for session
+    const originalUnlock = unlock;
+    unlock = async function() {
+      const password = document.getElementById('pwd').value;
+      const hash = await crypto.subtle.digest(
+        "SHA-256",
+        new TextEncoder().encode(password)
+      );
+      const hex = Array.from(new Uint8Array(hash))
+        .map(b => b.toString(16).padStart(2, '0'))
+        .join('');
+      const correct = "eb704addeef9fecfc24c8362da821d1602b8ed34";
+
+      if (hex.startsWith(correct)) {
+        sessionStorage.setItem('mimicterrains_unlocked', 'true');
+      }
+
+      // Call original logic
+      const btn = document.querySelector('button');
+      const errorMsg = document.getElementById('errorMsg');
+
+      btn.classList.add('loading-active');
+      errorMsg.classList.remove('show');
+
+      await new Promise(r => setTimeout(r, 300));
+
+      btn.classList.remove('loading-active');
+
+      if (hex.startsWith(correct)) {
+        document.getElementById('passwordScreen').style.display = 'none';
+        document.getElementById('contentScreen').classList.add('show');
+        history.replaceState(null, null, '#unlocked');
+      } else {
+        errorMsg.classList.add('show');
+        document.getElementById('pwd').value = '';
+        document.getElementById('pwd').focus();
+      }
+    };
+  </script>
+</body>
+</html>
