@@ -142,6 +142,23 @@
 | 【OfflineRL】环境配置：D4RL+CORL | 5 May 2024 | 379 words | 2 mins | featured_hub08d5e985de2d87bcb76e3c9fae4b217_611454_600x0_resize_q75_box.jpeg |
 | Build & Deploy | 4 May 2024 | 40 words | 1 min | BochiJam_hu32f5ba8d2b15449b34919264c5320990_858568_600x0_resize_box_3.png |
 
+### 4.5 受保护的文章
+
+| 文章 | 类型 | 访问方式 | 说明 |
+|------|------|----------|------|
+| **MimicTerrains** | 🔒 密码保护 | `/posts/mimicterrains/` | 研究笔记，需要密码访问 |
+
+**MimicTerrains 文章特点：**
+- **密码验证**: 使用 SHA256 哈希验证 (密码: `mimic_in_terrains`)
+- **安全性**: 浏览器端解密，内容在源码中不直接暴露
+- **设计**: 深色主题 + 玻璃拟态 (Glassmorphism) UI
+- **功能**: 记住会话状态，刷新后保持解锁
+
+**密码验证流程：**
+```
+用户输入密码 → SHA256 哈希 → 与存储哈希比较 → 匹配则显示内容
+```
+
 ### 4.5 卡片样式
 - **边框**: 2px, rounded, shadow-2xl
 - **悬停效果**: 标题下划线 (hover:underline)
