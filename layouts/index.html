@@ -1,0 +1,34 @@
+{{ define "main" }}
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Personal Workspace</p>
+      <h1>{{ .Site.Params.profile.name }}</h1>
+      <p class="hero-text">{{ .Site.Params.profile.headline }}</p>
+      <div class="hero-actions">
+        <a class="button primary" href="{{ "projects/" | relURL }}">Projects</a>
+        <a class="button" href="{{ "posts/" | relURL }}">Blog</a>
+        {{ with .Site.Params.social.github }}
+          <a class="button ghost" href="{{ . }}" target="_blank" rel="noopener noreferrer">GitHub</a>
+        {{ end }}
+      </div>
+    </div>
+    {{ with .Site.Params.profile.image }}
+      <img class="hero-image" src="{{ . }}" alt="{{ $.Site.Params.profile.name }}">
+    {{ end }}
+  </section>
+
+  {{ with .Content }}
+    <section class="content prose">
+      {{ . }}
+    </section>
+  {{ end }}
+
+  <section class="section-grid" aria-label="Site sections">
+    {{ range where .Site.Sections "Type" "in" (slice "posts" "projects" "tools") }}
+      <a class="section-tile" href="{{ .RelPermalink }}">
+        <span class="section-title">{{ .Title }}</span>
+        <span class="section-desc">{{ .Description | default .Summary }}</span>
+      </a>
+    {{ end }}
+  </section>
+{{ end }}

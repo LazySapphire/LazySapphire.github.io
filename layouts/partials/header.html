@@ -1,0 +1,30 @@
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="site-brand" href="{{ .Site.Home.RelPermalink }}" aria-label="{{ .Site.Title }} home">
+      {{ .Site.Title }}
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      Menu
+    </button>
+    <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
+      {{ range .Site.Menus.main }}
+        {{ if .HasChildren }}
+          <div class="nav-group">
+            <a class="nav-link" href="{{ .URL }}">{{ .Name }}</a>
+            <div class="nav-children" aria-label="{{ .Name }} submenu">
+              {{ range .Children }}
+                <a class="nav-child" href="{{ .URL }}">{{ .Name }}</a>
+              {{ end }}
+            </div>
+          </div>
+        {{ else }}
+          <a class="nav-link{{ if .Params.external }} external{{ end }}" href="{{ .URL }}"{{ if .Params.external }} target="_blank" rel="noopener noreferrer"{{ end }}>
+            {{ .Name }}
+          </a>
+        {{ end }}
+      {{ end }}
+      <button class="theme-toggle" type="button" aria-label="Toggle color theme">Theme</button>
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,26 @@
+{{ define "main" }}
+  <section class="page-header">
+    <p class="eyebrow">{{ .Section | default "Section" }}</p>
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}<p>{{ . }}</p>{{ end }}
+  </section>
+
+  {{ with .Content }}
+    <section class="content prose">
+      {{ . }}
+    </section>
+  {{ end }}
+
+  {{ if .Pages }}
+    <section class="item-list" aria-label="{{ .Title }} pages">
+      {{ range .Pages.ByWeight }}
+        <article class="list-item">
+          <a href="{{ .RelPermalink }}">
+            <h2>{{ .Title }}</h2>
+            {{ with .Description }}<p>{{ . }}</p>{{ else }}{{ with .Summary }}<p>{{ . }}</p>{{ end }}{{ end }}
+          </a>
+        </article>
+      {{ end }}
+    </section>
+  {{ end }}
+{{ end }}
