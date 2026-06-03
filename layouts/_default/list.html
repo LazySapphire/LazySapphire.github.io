@@ -14,10 +14,21 @@
   {{ if .Pages }}
     <section class="item-list" aria-label="{{ .Title }} pages">
       {{ range .Pages.ByWeight }}
-        <article class="list-item">
+        <article class="list-item{{ with .Params.cover }} has-cover{{ end }}">
           <a href="{{ .RelPermalink }}">
-            <h2>{{ .Title }}</h2>
-            {{ with .Description }}<p>{{ . }}</p>{{ else }}{{ with .Summary }}<p>{{ . }}</p>{{ end }}{{ end }}
+            {{ $page := . }}
+            {{ with .Params.cover }}
+              {{ with $page.Resources.GetMatch . }}
+                {{ $thumb := .Fit "360x225" }}
+                <img class="list-thumb" src="{{ $thumb.RelPermalink }}" width="{{ $thumb.Width }}" height="{{ $thumb.Height }}" alt="{{ $page.Title }}">
+              {{ else }}
+                <img class="list-thumb" src="{{ . | relURL }}" alt="{{ $page.Title }}">
+              {{ end }}
+            {{ end }}
+            <div class="list-body">
+              <h2>{{ .Title }}</h2>
+              {{ with .Description }}<p>{{ . }}</p>{{ else }}{{ with .Summary }}<p>{{ . }}</p>{{ end }}{{ end }}
+            </div>
           </a>
         </article>
       {{ end }}

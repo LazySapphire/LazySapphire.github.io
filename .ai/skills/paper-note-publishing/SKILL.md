@@ -52,10 +52,13 @@ tags: []
 categories: ["paper-notes"]
 paper_title: "<paper title>"
 arxiv: "<id if available>"
+cover: "<representative image in the page bundle>"
 ---
 ```
 
 Remove local-only lines such as links to `./paper.pdf` or `./paper.txt` unless those files are intentionally published.
+
+Set `cover` when the paper should appear in the Papers list with a representative thumbnail. Prefer a clear framework, pipeline, or result figure that already belongs to the page bundle.
 
 ### 4. Normalize Math
 
@@ -73,7 +76,7 @@ x_t = (1 - t)x_0 + t x_1,\quad t \in [0,1]
 $$
 ```
 
-Use `$...$` for concise inline formulas and `$$...$$` for display formulas. Keep ordinary variable mentions as code if mathematical rendering would add little value.
+Use `$...$` for concise inline formulas and `$$...$$` for display formulas. Convert inline mathematical variables and compact expressions such as `$m_t$`, `$p_t$`, `$N_{\mathrm{exec}} = 2$`, and `$\tau_t \in \mathbb{R}^{K \times D}$`. Keep ordinary prose terms as text.
 
 Generated HTML should preserve LaTeX backslashes inside math delimiters, including `\\` aligned line breaks and commands such as `\left\|...\right\|`.
 
@@ -81,6 +84,7 @@ Generated HTML should preserve LaTeX backslashes inside math delimiters, includi
 
 - Copy only curated figures needed by the note.
 - Prefer relative image links such as `![Framework](fig2_framework.png)`.
+- Pick one representative figure for front matter `cover` so paper list entries are visually scannable; the list template generates a smaller thumbnail from page-bundle images.
 - Keep raw extracted images out of the published page bundle unless explicitly requested.
 - Rely on site CSS for paper-note image sizing; do not hard-code width attributes in Markdown by default.
 

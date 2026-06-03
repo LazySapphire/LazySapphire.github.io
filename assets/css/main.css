@@ -276,6 +276,27 @@ h2 {
   box-shadow: var(--shadow);
 }
 
+.list-item.has-cover a {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem;
+}
+
+.list-thumb {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: contain;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg);
+}
+
+.list-body {
+  min-width: 0;
+}
+
 .section-title {
   display: block;
   margin-bottom: 0.35rem;
@@ -298,7 +319,11 @@ h2 {
 }
 
 .paper-note {
-  max-width: 900px;
+  max-width: 1020px;
+}
+
+.paper-note .prose {
+  max-width: 940px;
 }
 
 .paper-note .prose img {
@@ -390,6 +415,14 @@ h2 {
 
   .section-grid {
     grid-template-columns: 1fr;
+  }
+
+  .list-item.has-cover a {
+    grid-template-columns: 1fr;
+  }
+
+  .list-thumb {
+    max-height: 220px;
   }
 
   .footer-inner {
