@@ -1,0 +1,4 @@
+interface:
+  display_name: "Repository Maintenance Cycle"
+  short_description: "Plan-first repo maintenance workflow."
+  default_prompt: "Use this repository maintenance cycle: inspect, draft a .tmp plan, confirm scope when needed, implement, validate, and write a .maintenance log."
