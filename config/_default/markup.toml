@@ -1,4 +1,11 @@
 [goldmark]
+[goldmark.extensions.passthrough]
+enable = true
+
+[goldmark.extensions.passthrough.delimiters]
+block = [["$$", "$$"], ["\\[", "\\]"]]
+inline = [["$", "$"], ["\\(", "\\)"]]
+
 [goldmark.renderer]
 unsafe = false
 

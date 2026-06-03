@@ -9,6 +9,11 @@ pageRef = "/posts"
 weight = 10
 
 [[main]]
+name = "Papers"
+pageRef = "/papers"
+weight = 15
+
+[[main]]
 identifier = "projects"
 name = "Projects"
 pageRef = "/projects"

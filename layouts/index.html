@@ -24,7 +24,7 @@
   {{ end }}
 
   <section class="section-grid" aria-label="Site sections">
-    {{ range where .Site.Sections "Type" "in" (slice "posts" "projects" "tools") }}
+    {{ range where .Site.Sections "Type" "in" (slice "posts" "papers" "projects" "tools") }}
       <a class="section-tile" href="{{ .RelPermalink }}">
         <span class="section-title">{{ .Title }}</span>
         <span class="section-desc">{{ .Description | default .Summary }}</span>

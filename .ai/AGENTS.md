@@ -20,6 +20,7 @@ Use this process:
 | Skill | Path | Use When | Skip When |
 | --- | --- | --- | --- |
 | Repository Maintenance Cycle | `.ai/skills/repository-maintenance-cycle/SKILL.md` | Planning or implementing repo maintenance, refactors, content-system changes, deployment/CI/build changes, documentation updates, or tasks that should follow plan -> implement -> validate -> log. | Tiny one-off questions, read-only explanations, or tasks unrelated to repository maintenance. |
+| Paper Note Publishing | `.ai/skills/paper-note-publishing/SKILL.md` | Publishing local Markdown paper-reading notes into `content/papers/`, normalizing math, copying selected figures, configuring paper note rendering, or updating paper note conventions. | General repo work unrelated to paper notes, or read-only discussion of a paper without publishing it. |
 
 ## Repository Conventions
 

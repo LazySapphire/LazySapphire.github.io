@@ -1,0 +1,4 @@
+interface:
+  display_name: "Paper Note Publishing"
+  short_description: "Publish local paper notes to Hugo."
+  default_prompt: "Publish a local Markdown paper note into the Hugo Papers section with math rendering, image sizing, validation, and maintenance logging."
