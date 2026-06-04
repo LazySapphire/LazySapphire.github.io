@@ -45,7 +45,8 @@ Add front matter before the note body:
 ```yaml
 ---
 title: "<note title>"
-description: "<one sentence summary>"
+list_title: "<paper abbreviation or concise display title>"
+description: "<one sentence paper intro>"
 date: "YYYY-MM-DD"
 math: true
 tags: []
@@ -57,6 +58,13 @@ cover: "<representative image in the page bundle>"
 ```
 
 Remove local-only lines such as links to `./paper.pdf` or `./paper.txt` unless those files are intentionally published.
+
+Metadata guidance:
+
+- Use `title` for the single-page heading, e.g. `PARC 论文阅读笔记`.
+- Use `list_title` for paper-list cards. Prefer the paper abbreviation only, e.g. `PARC`; if the paper has no clear abbreviation, use the full paper name or the user-provided display title.
+- Use `description` as a one-sentence introduction to the paper's idea or contribution. Do not use the full paper title plus `阅读笔记` as the description.
+- Keep `paper_title` as the full formal paper title for source attribution.
 
 Set `cover` when the paper should appear in the Papers list with a representative thumbnail. Prefer a clear framework, pipeline, or result figure that already belongs to the page bundle.
 

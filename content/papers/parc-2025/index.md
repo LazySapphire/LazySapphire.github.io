@@ -1,6 +1,7 @@
 ---
 title: "PARC 论文阅读笔记"
-description: "PARC: Physics-based Augmentation with Reinforcement Learning for Character Controllers 阅读笔记。"
+list_title: "PARC"
+description: "通过生成模型扩增跑酷动作，并用物理强化学习跟踪器过滤和修正可执行运动。"
 date: "2026-06-03"
 math: true
 tags: ["character-control", "motion-generation", "reinforcement-learning", "physics-based-animation"]

@@ -1,6 +1,7 @@
 ---
 title: "Heracles 论文阅读笔记"
-description: "Heracles: Bridging Precise Tracking and Generative Synthesis for General Humanoid Control 阅读笔记。"
+list_title: "Heracles"
+description: "提出状态条件化的生成式轨迹中间层，在人形机器人偏离参考动作时实时生成可执行恢复轨迹。"
 date: "2026-06-03"
 math: true
 tags: ["humanoid-control", "flow-matching", "robotics"]
