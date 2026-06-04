@@ -101,6 +101,7 @@ a:hover {
 
 .nav-link,
 .theme-toggle,
+.language-toggle,
 .nav-toggle {
   display: inline-flex;
   align-items: center;
@@ -116,10 +117,62 @@ a:hover {
 
 .nav-link:hover,
 .theme-toggle:hover,
+.language-toggle:hover,
 .nav-toggle:hover {
   color: var(--text);
   border-color: var(--line);
   background: var(--surface);
+}
+
+.icon-button {
+  justify-content: center;
+  width: 40px;
+  padding: 0;
+}
+
+.nav-icon,
+.button-icon,
+.theme-icon {
+  flex: 0 0 auto;
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+
+.theme-icon {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.theme-icon-moon {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-icon-sun {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-icon-moon {
+  display: block;
+}
+
+.language-toggle {
+  font-weight: 800;
+}
+
+.nav-link.external,
+.external-link {
+  gap: 0.4rem;
+}
+
+.nav-link.external span,
+.external-link span {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
 }
 
 .nav-group {
@@ -214,6 +267,7 @@ h2 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 0.4rem;
   min-height: 42px;
   padding: 0 1rem;
   border: 1px solid var(--line);
@@ -390,8 +444,13 @@ h2 {
   }
 
   .nav-link,
-  .theme-toggle {
+  .theme-toggle,
+  .language-toggle {
     justify-content: flex-start;
+    width: 100%;
+  }
+
+  .icon-button {
     width: 100%;
   }
 

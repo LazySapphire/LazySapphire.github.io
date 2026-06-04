@@ -1,19 +1,28 @@
 {{ define "main" }}
+  {{ $profile := .Site.Params.profile }}
   <section class="hero">
     <div class="hero-copy">
-      <p class="eyebrow">Personal Workspace</p>
-      <h1>{{ .Site.Params.profile.name }}</h1>
-      <p class="hero-text">{{ .Site.Params.profile.headline }}</p>
+      <p class="eyebrow" data-i18n="home.eyebrow">Personal Workspace</p>
+      <h1>{{ $profile.name }}</h1>
+      <p class="hero-text" data-i18n="home.headline">{{ $profile.headline }}</p>
       <div class="hero-actions">
-        <a class="button primary" href="{{ "projects/" | relURL }}">Projects</a>
-        <a class="button" href="{{ "posts/" | relURL }}">Blog</a>
+        <a class="button primary" href="{{ "projects/" | relURL }}" data-i18n="nav.projects">Projects</a>
+        <a class="button" href="{{ "papers/" | relURL }}" data-i18n="nav.reading_notes">Reading Notes</a>
         {{ with .Site.Params.social.github }}
-          <a class="button ghost" href="{{ . }}" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a class="button ghost external-link" href="{{ . }}" target="_blank" rel="noopener noreferrer">
+            <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 17 17 7"></path>
+              <path d="M8 7h9v9"></path>
+            </svg>
+            <span data-i18n="nav.github">GitHub</span>
+          </a>
         {{ end }}
       </div>
     </div>
-    {{ with .Site.Params.profile.image }}
-      <img class="hero-image" src="{{ . }}" alt="{{ $.Site.Params.profile.name }}">
+    {{ $lightImage := $profile.image_light | default $profile.image }}
+    {{ $darkImage := $profile.image_dark | default $profile.image }}
+    {{ with $lightImage }}
+      <img class="hero-image" src="{{ . }}" data-light-src="{{ . }}" data-dark-src="{{ $darkImage }}" alt="{{ $profile.name }}">
     {{ end }}
   </section>
 
@@ -23,11 +32,11 @@
     </section>
   {{ end }}
 
-  <section class="section-grid" aria-label="Site sections">
-    {{ range where .Site.Sections "Type" "in" (slice "posts" "papers" "projects" "tools") }}
+  <section class="section-grid" aria-label="Site sections" data-i18n-aria-label="home.sections">
+    {{ range where .Site.Sections "Type" "in" (slice "papers" "projects" "tools") }}
       <a class="section-tile" href="{{ .RelPermalink }}">
-        <span class="section-title">{{ .Title }}</span>
-        <span class="section-desc">{{ .Description | default .Summary }}</span>
+        <span class="section-title" data-i18n="section.{{ .Type }}.title">{{ .Title }}</span>
+        <span class="section-desc" data-i18n="section.{{ .Type }}.description">{{ .Description | default .Summary }}</span>
       </a>
     {{ end }}
   </section>

@@ -18,7 +18,9 @@ mainSections = ["posts", "projects"]
 [params.profile]
 name = "LazySapphire"
 headline = "Personal site and research workspace."
-image = "/img/BochiJam2.png"
+image = "/img/frieren.png"
+image_light = "/img/frieren.png"
+image_dark = "/img/BochiJam2.png"
 
 [params.social]
 github = "https://github.com/LazySapphire"

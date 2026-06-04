@@ -1,30 +1,56 @@
-<a class="skip-link" href="#main-content">Skip to main content</a>
+<a class="skip-link" href="#main-content" data-i18n="skip.main">Skip to main content</a>
 <header class="site-header">
   <div class="header-inner">
     <a class="site-brand" href="{{ .Site.Home.RelPermalink }}" aria-label="{{ .Site.Title }} home">
       {{ .Site.Title }}
     </a>
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-i18n="nav.menu" data-i18n-aria-label="nav.menu">
       Menu
     </button>
-    <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
+    <nav id="site-nav" class="site-nav" aria-label="Primary navigation" data-i18n-aria-label="nav.primary">
       {{ range .Site.Menus.main }}
         {{ if .HasChildren }}
           <div class="nav-group">
-            <a class="nav-link" href="{{ .URL }}">{{ .Name }}</a>
-            <div class="nav-children" aria-label="{{ .Name }} submenu">
+            <a class="nav-link" href="{{ .URL }}">
+              <span{{ with .Params.i18n }} data-i18n="{{ . }}"{{ end }}>{{ .Name }}</span>
+            </a>
+            <div class="nav-children" aria-label="{{ .Name }} submenu"{{ with .Params.i18n }} data-i18n-aria-label="{{ . }}_submenu"{{ end }}>
               {{ range .Children }}
-                <a class="nav-child" href="{{ .URL }}">{{ .Name }}</a>
+                <a class="nav-child" href="{{ .URL }}">
+                  <span{{ with .Params.i18n }} data-i18n="{{ . }}"{{ end }}>{{ .Name }}</span>
+                </a>
               {{ end }}
             </div>
           </div>
         {{ else }}
           <a class="nav-link{{ if .Params.external }} external{{ end }}" href="{{ .URL }}"{{ if .Params.external }} target="_blank" rel="noopener noreferrer"{{ end }}>
-            {{ .Name }}
+            {{ if .Params.external }}
+              <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 17 17 7"></path>
+                <path d="M8 7h9v9"></path>
+              </svg>
+            {{ end }}
+            <span{{ with .Params.i18n }} data-i18n="{{ . }}"{{ end }}>{{ .Name }}</span>
           </a>
         {{ end }}
       {{ end }}
-      <button class="theme-toggle" type="button" aria-label="Toggle color theme">Theme</button>
+      <button class="theme-toggle icon-button" type="button" aria-label="Toggle color theme" data-i18n-title="theme.toggle" data-i18n-aria-label="theme.toggle">
+        <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2"></path>
+          <path d="M12 20v2"></path>
+          <path d="m4.93 4.93 1.41 1.41"></path>
+          <path d="m17.66 17.66 1.41 1.41"></path>
+          <path d="M2 12h2"></path>
+          <path d="M20 12h2"></path>
+          <path d="m6.34 17.66-1.41 1.41"></path>
+          <path d="m19.07 4.93-1.41 1.41"></path>
+        </svg>
+        <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M20.99 12.72A8.5 8.5 0 1 1 11.28 3.01 6.5 6.5 0 0 0 20.99 12.72Z"></path>
+        </svg>
+      </button>
+      <button class="language-toggle" type="button" aria-label="Switch language" data-i18n-title="language.toggle" data-i18n-aria-label="language.toggle">中/英</button>
     </nav>
   </div>
 </header>
