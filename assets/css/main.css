@@ -313,6 +313,31 @@ h2 {
   text-underline-offset: 0.18em;
 }
 
+.prose table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+}
+
+.prose th,
+.prose td {
+  padding: 0.45rem 0.55rem;
+  border: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+.prose th {
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  font-weight: 800;
+}
+
+.prose .highlight {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
 .section-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
