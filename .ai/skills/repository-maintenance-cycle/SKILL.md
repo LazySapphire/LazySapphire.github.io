@@ -17,7 +17,7 @@ Use this skill to keep repository maintenance deliberate and auditable. The expe
 - Read the relevant source files before making assumptions.
 - Treat `public/` as generated output, not a source-of-truth directory.
 - Treat `.tmp/` as local planning scratch space; do not commit it.
-- Treat `.maintenance/logs/` as committed repository maintenance history.
+- Treat `.maintenance/logs/` as committed repository maintenance history, organized by category and ISO week.
 
 ### 2. Write The Plan First
 
@@ -68,31 +68,27 @@ When deployment is changed or requested:
 
 ### 5. Record Completed Work
 
-After a plan is implemented and validated, write a maintenance log under:
+After a plan is implemented and validated, append a maintenance log entry under:
 
 ```text
-.maintenance/logs/
+.maintenance/logs/<category>/YYYY-Www.md
 ```
 
-Naming rule:
+Use the category that best matches the work:
 
-```text
-YYYY-MM-DD_<log-summary>.md
-```
+- `feature-maintenance/`: repository structure, build/deploy workflow, AI guidance, content-system changes, and maintenance-process changes.
+- `frontend-optimization/`: navigation, layout, styling, reading experience, and client-side UI behavior.
+- `note-publishing/`: paper notes, general notes, and other content publishing records.
 
-If multiple logs are created on the same day for similar work, include time:
-
-```text
-YYYY-MM-DD-HHMM_<log-summary>.md
-```
-
-The log should include:
+Each weekly entry should include:
 
 - Background.
 - Implemented changes.
 - Decisions made.
 - Validation performed.
 - Follow-ups.
+
+See `.maintenance/logs/README.md` for the current convention.
 
 Do not publish maintenance logs through Hugo. Keep them outside `content/` and `static/`.
 
@@ -101,7 +97,7 @@ Do not publish maintenance logs through Hugo. Keep them outside `content/` and `
 When committing is requested:
 
 - Run validation first.
-- Stage source changes and `.maintenance/logs/`.
+- Stage source changes and relevant `.maintenance/logs/` weekly files.
 - Do not stage `.tmp/` or `public/`.
 - Use a concise commit message describing the repository change.
 - After pushing, refresh remote tracking refs and verify the deployed site when relevant.

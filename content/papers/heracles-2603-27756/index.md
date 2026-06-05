@@ -131,7 +131,73 @@ $$
 
 训练数据构造也在强化这个思想。论文从动作序列里采样不同长度的 segment, conditioning 里的 $m_t$ 来自 segment endpoint, 但监督 keyframes 只覆盖固定的前 $H$ 帧, 也就是固定 $\Delta t$ 的局部窗口。这样一来, target command 可以离当前状态很远, 但模型永远只需要输出有界的短时残差。远目标负责提供方向和意图, 监督目标负责保持局部可执行。
 
-#### 2.4 推理时如何从噪声生成轨迹
+#### 2.4 生成器如何判断“好坏”
+
+| 问题 | 论文里的实际答案 |
+| --- | --- |
+| 生成器有没有在线判断一条新轨迹好不好? | 没有看到显式的在线判别器、候选轨迹 ranking、dynamics checker、MPC cost 或 reward model。 |
+| 生成器的优化目标是什么? | 离线训练 conditional flow matching 的 velocity field, 主损失是 Eq. (7) 的 $L_{\mathrm{vel}}$, 再加 kinematics-aware loss weighting。 |
+| 新轨迹是否可执行如何保证? | 不是硬保证, 而是由 motion residual 数据分布、0.2 秒短 horizon、起点 inpainting anchor、directional warm start、低层 physics tracker 和闭环重规划共同间接保证。 |
+| 是否满足需求怎么进入系统? | 原始参考 $m_t$ 只作为 condition 和 warm-start 方向先验进入生成器; 系统层面用 rollout completion/tracking error/真机恢复来评估, 不是生成器内部单独优化 goal satisfaction。 |
+
+一个非常关键的点: **论文没有给生成器设计一个显式的在线可执行性判别器**。也就是说, Heracles 在推理时不是先生成很多候选轨迹, 再用一个 dynamics checker、reward model、MPC cost 或 discriminator 去筛选“哪条能执行”。它的生成器本身主要通过训练损失学习条件残差分布, 输出之后直接交给 tracker 闭环执行。
+
+这里还要避免一个容易混淆的点: 论文 Eq. (3) 里的 expected discounted return $J(\pi)$ 是**低层 physics tracker** 的 PPO 目标, reward 由 tracking precision 和 physical regularization 组成; 它不是生成器 $D_\theta$ 的训练目标。生成器训练是离线的 flow matching / weighted regression, 不是 RL。
+
+训练时, 生成器的核心优化目标就是前面写的 velocity matching loss:
+
+$$
+L_{\mathrm{vel}}
+= \mathbb{E}_{t,x_0,x_1}
+\left\|
+\hat{v}(x_t, t, c_t) - (x_1 - x_0)
+\right\|_2^2
+$$
+
+这里的“好”首先被定义为: 在给定 $c_t=[p_t,m_t]$ 时, 模型预测的 velocity field 要接近从真实残差样本 $x_0$ 到噪声 $x_1$ 的真实直线路径速度。换句话说, 生成器不是直接最小化“能不能站稳”或“是否完成任务”的奖励, 而是在学习一个条件分布:
+
+$$
+P(\text{short-horizon residual trajectory}\mid p_t, m_t)
+$$
+
+论文还给这个 loss 加了 **kinematics-aware weighting**。它的动机是: 同样的关节角误差, 在不同身体姿态下造成的末端或身体 link 位移可能差很多。例如手臂展开时肩关节一点误差会带来更大的 Cartesian displacement。于是论文用近似 Jacobian magnitude 给每个状态维度加权:
+
+$$
+w_d(q) \approx \sum_b
+\left\|
+\frac{p_b(q+\delta e_d)-p_b(q-\delta e_d)}{2\delta}
+\right\|^2
+$$
+
+如果写成更直观的形式, 生成器实际优化的东西可以理解为一个带权 velocity matching:
+
+$$
+L_{\mathrm{gen}}
+\approx
+\mathbb{E}
+\sum_{k,d}
+w_{k,d}(q)
+\left(
+\hat{v}_{k,d}(x_t,t,c_t) - (x_1-x_0)_{k,d}
+\right)^2
+$$
+
+论文没有把上式作为完整公式直接写出来, 但文字说明是: 在 primary velocity matching objective 之外引入 kinematics-aware loss weighting, 权重在数据构造时通过 differentiable forward kinematics 预计算、归一化并截断下界。因此, 这里的“好”不只是 joint-space 上接近数据残差, 还要更重视那些对 body-space 影响大的关节和姿态。
+
+那么“新轨迹是否可执行”是怎么来的? 主要是**间接保证**, 不是显式判别:
+
+- **来自数据分布**: 监督残差 $x_0$ 来自动作库中的真实或整理过的 motion segments, 生成器学习的是这些短时运动增量的条件分布。
+- **来自短时 horizon**: 生成器永远只预测 0.2 秒、8 个 keyframes, 不需要一次生成完整恢复动作。短窗口比长轨迹更容易保持局部可行。
+- **来自起点连续性约束**: inpainting anchor 固定第一个 residual token, 让生成轨迹从当前物理状态连续出发。
+- **来自方向先验**: directional warm start 让采样一开始就朝 target reference 的方向走, 避免纯噪声采样在极少步数下偏离需求。
+- **来自低层 tracker**: 生成结果不是直接执行成 torque, 而是被 densify 成 reference, 再由已经经过 RL、domain randomization 和 PD 控制链训练的 physics tracker 去追。
+- **来自闭环重规划**: 每 0.04 秒重新观察真实状态并再生成一次。上一小段轨迹造成的偏差会进入下一次的 $p_t$, 被生成器重新条件化。
+
+所以, 对“是否满足需求”的回答也类似: 论文没有单独的 goal satisfaction loss。需求通过 $m_t$ 作为 condition、通过 warm start 里的 $m_t-p_t$ 方向先验、以及闭环持续重规划进入系统。最终是否满足需求, 是通过下游 rollout 指标和真机展示来评估, 例如 completion rate、root height/orientation error、fall-and-recovery 是否完成, 而不是在生成器内部有一个显式打分器。论文的 completion rate 定义也很系统级: 在完整 rollout 中, root height error 小于 0.3 m 且 root orientation error 小于 1.2 rad 的参考帧比例。
+
+这点反而揭示了 Heracles 的本质: 它不是一个带约束求解器, 而是一个**条件生成式 reference refiner**。它学习“在这种身体状态和目标意图下, 训练数据里类似的短时可行动作增量长什么样”。可执行性是统计学习和控制闭环共同给出的, 不是由一个硬约束优化问题直接保证的。
+
+#### 2.5 推理时如何从噪声生成轨迹
 
 标准 flow matching 推理可以从纯噪声 $x_1$ 开始, 从 $t = 1$ 积分到 $t = 0$。Heracles 为了实时控制做了一个更工程化的改法: **directional warm start**。
 
@@ -161,7 +227,7 @@ $$
 
 因为 $t_{\mathrm{next}} - t_i$ 是负数, 而 $\hat{v}$ 学的是数据到噪声的方向, 所以这个更新会把样本从噪声侧推回数据侧。
 
-#### 2.5 inpainting anchor 保证起点连续
+#### 2.6 inpainting anchor 保证起点连续
 
 生成轨迹不能第一帧就和真实机器人状态断开。论文用 inpainting constraint pin 住第一个 residual token:
 
@@ -171,7 +237,7 @@ $$
 
 其中 $r_0$ 是零残差 anchor, 对应“第一个关键帧就是当前状态”。这类似图像 diffusion 里的 inpainting: 某些位置不是自由生成, 而是被条件约束住。放在控制里, 这个约束的意义更强, 因为轨迹起点如果不连续, 低层 tracker 会立刻收到一个不真实的跳变 reference。
 
-#### 2.6 生成后如何接到 tracker
+#### 2.7 生成后如何接到 tracker
 
 Flow matching 输出的是 8 个稀疏 keyframes。部署时还要把它变成 tracker 每个控制步可读的 dense reference:
 
@@ -183,7 +249,7 @@ Flow matching 输出的是 8 个稀疏 keyframes。部署时还要把它变成 t
 
 因此 Heracles 的长时恢复不是一次生成完整起身动作, 而是很多个 0.2 秒片段不断闭环拼接出来。这个设计很像 MPC 的味道: 每次只承诺短窗口, 一边执行一边根据真实物理状态修正计划。
 
-#### 2.7 为什么这种生成层适合做人形控制中间件
+#### 2.8 为什么这种生成层适合做人形控制中间件
 
 我觉得这部分是论文最独特的技术品味:
 

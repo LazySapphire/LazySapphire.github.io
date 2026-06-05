@@ -1,5 +1,5 @@
 {{ define "main" }}
-  <article class="article{{ if eq .Section "papers" }} paper-note{{ end }}">
+  <article class="article{{ if eq .Section "papers" }} paper-note{{ end }}{{ if eq .Section "notes" }} note-article{{ end }}">
     <header class="page-header">
       <p class="eyebrow">{{ .Section | default "Page" }}</p>
       <h1>{{ .Title }}</h1>

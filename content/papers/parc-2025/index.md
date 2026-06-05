@@ -39,24 +39,18 @@ PARC 的判断是: 生成模型的确能扩大数据分布, 但它生成的是 k
 
 PARC 每一轮大致如下:
 
-```text
-Input: 当前数据集 D_{i-1}
-
-1. 继续训练 motion generator G_i
-   条件: terrain heightmap h, target direction/path d, previous frames
+> Input: 当前数据集 $D_{i-1}$
+> 1. 继续训练 motion generator G_i
+   条件: terrain heightmap $h$, target direction/path $d$, previous frames
    输出: kinematic motion sequence
-
-2. 用 G_i 在新地形上生成 synthetic motions \tilde{M}_i
+> 2. 用 $G_i$ 在新地形上生成 synthetic motions $\tilde{M}_i$
    通过 batch selection 和 kinematic optimization 先做一层启发式清理
-
-3. 用 D_{i-1} ∪ \tilde{M}_i 训练 physics tracker π_i
+> 3. 用 $D_{i-1} ∪ \tilde{M}_i$ 训练 physics tracker $π_i$
    tracker 在 Isaac Gym 中学习追踪这些参考动作
-
-4. 用 π_i 追踪 \tilde{M}_i, 记录成功执行的 simulated motions M_i
+> 4. 用 $π_i$ 追踪 $\tilde{M}_i$, 记录成功执行的 simulated motions $M_i$
    追踪失败的片段不进入新数据集
+> 5. 更新数据集 $D_i = D_{i-1} ∪ M_i$
 
-5. 更新数据集 D_i = D_{i-1} ∪ M_i
-```
 
 两个模型是 continual training: 第 $i$ 轮的 generator 和 tracker 都从上一轮模型初始化, 不是每轮从零训练。这个设计让迭代扩增更像 curriculum, 每轮都在上一轮的动作分布上往外推一点。
 

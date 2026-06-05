@@ -397,15 +397,18 @@ h2 {
   max-width: 820px;
 }
 
-.paper-note {
+.paper-note,
+.note-article {
   max-width: 1020px;
 }
 
-.paper-note .prose {
+.paper-note .prose,
+.note-article .prose {
   max-width: 940px;
 }
 
-.paper-note .prose img {
+.paper-note .prose img,
+.note-article .prose img {
   display: block;
   width: auto;
   max-width: min(680px, 92%);
@@ -416,13 +419,15 @@ h2 {
   background: var(--surface);
 }
 
-.paper-note .katex-display {
+.paper-note .katex-display,
+.note-article .katex-display {
   overflow-x: auto;
   overflow-y: hidden;
   padding: 0.35rem 0;
 }
 
-.paper-note .katex {
+.paper-note .katex,
+.note-article .katex {
   font-size: 1.04em;
 }
 

@@ -13,6 +13,13 @@ weight = 15
 params.i18n = "nav.reading_notes"
 
 [[main]]
+identifier = "notes"
+name = "Notes"
+pageRef = "/notes"
+weight = 18
+params.i18n = "nav.notes"
+
+[[main]]
 identifier = "projects"
 name = "Projects"
 pageRef = "/projects"
