@@ -1,0 +1,4 @@
+interface:
+  display_name: "Paper PDF Assets"
+  short_description: "Maintain external paper PDF archives."
+  default_prompt: "Register or fetch paper PDFs for this repository using the external `pdf-archive` git repo workflow, update `pdf_asset` and `pdf_sha256`, keep public notes free of PDF links, and validate the local maintenance flow."

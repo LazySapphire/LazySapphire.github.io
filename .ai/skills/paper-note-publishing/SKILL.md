@@ -11,6 +11,8 @@ Use this skill to turn local Markdown paper notes into publishable Hugo pages un
 
 This site relies on Hugo Goldmark passthrough plus KaTeX auto-render for formulas. If formula backslashes are being removed in generated HTML, check `config/_default/markup.toml` before editing formulas around the problem.
 
+If the task includes archiving or fetching the paper PDF itself, also load `paper-pdf-asset-maintenance`. Public paper pages do not expose PDF links.
+
 ## Workflow
 
 ### 1. Inspect The Local Note
@@ -54,6 +56,8 @@ categories: ["paper-notes"]
 paper_title: "<paper title>"
 arxiv: "<id if available>"
 cover: "<representative image in the page bundle>"
+pdf_asset: "<optional external PDF asset name>"
+pdf_sha256: "<optional sha256 for local PDF fetch workflow>"
 ---
 ```
 
@@ -65,6 +69,7 @@ Metadata guidance:
 - Use `list_title` for paper-list cards. Prefer the paper abbreviation only, e.g. `PARC`; if the paper has no clear abbreviation, use the full paper name or the user-provided display title.
 - Use `description` as a one-sentence introduction to the paper's idea or contribution. Do not use the full paper title plus `阅读笔记` as the description.
 - Keep `paper_title` as the full formal paper title for source attribution.
+- When the paper PDF is part of the external archive workflow, store `pdf_asset` and `pdf_sha256` in front matter for local tooling only. Do not render these fields into public pages.
 
 Set `cover` when the paper should appear in the Papers list with a representative thumbnail. Prefer a clear framework, pipeline, or result figure that already belongs to the page bundle.
 
@@ -94,6 +99,7 @@ Generated HTML should preserve LaTeX backslashes inside math delimiters, includi
 - Prefer relative image links such as `![Framework](fig2_framework.png)`.
 - Pick one representative figure for front matter `cover` so paper list entries are visually scannable; the list template generates a smaller thumbnail from page-bundle images.
 - Keep raw extracted images out of the published page bundle unless explicitly requested.
+- Remove public `PDF` links from the note body. PDF retrieval belongs to local maintenance tooling, not the website.
 - Rely on site CSS for paper-note image sizing; do not hard-code width attributes in Markdown by default.
 
 ### 6. Validate

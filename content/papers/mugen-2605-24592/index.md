@@ -9,13 +9,15 @@ categories: ["paper-notes"]
 paper_title: "MuGen: Multi-Skill Generative Locomotion Controller for Humanoid Robots"
 arxiv: "2605.24592"
 cover: "fig2_system_overview.png"
+pdf_asset: "mugen-2605-24592.pdf"
+pdf_sha256: "d1b3677f5f9e5bc27e4ecb1649968798980a4782a14e96d038a6cae5877e5bd4"
 ---
 
 论文: **MuGen: Multi-Skill Generative Locomotion Controller for Humanoid Robots**  
 作者: Yusen Feng, Xiang Wang, Heyuan Yao, Zixi Kang, Xinyu Huo, Boyang Yu, Pengyun Qiu, Ruijie Zhao, Baoquan Chen, Libin Liu  
 机构: Peking University  
 版本: arXiv:2605.24592v1, submitted 2026-05-23  
-链接: [arXiv](https://arxiv.org/abs/2605.24592), [PDF](https://arxiv.org/pdf/2605.24592)  
+链接: [arXiv](https://arxiv.org/abs/2605.24592)  
 
 ## 一句话结论
 

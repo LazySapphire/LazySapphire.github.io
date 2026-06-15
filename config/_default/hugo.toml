@@ -25,3 +25,9 @@ image_dark = "/img/BochiJam2.png"
 [params.social]
 github = "https://github.com/LazySapphire"
 email = ""
+
+[params.paper_assets]
+github_repo = "LazySapphire/pdf-archive"
+repo_root = "papers"
+branch = "main"
+cache_dir = ".cache/paper-pdfs"

@@ -21,10 +21,12 @@ Use this process:
 | --- | --- | --- | --- |
 | Repository Maintenance Cycle | `.ai/skills/repository-maintenance-cycle/SKILL.md` | Planning or implementing repo maintenance, refactors, content-system changes, deployment/CI/build changes, documentation updates, or tasks that should follow plan -> implement -> validate -> log. | Tiny one-off questions, read-only explanations, or tasks unrelated to repository maintenance. |
 | Paper Note Publishing | `.ai/skills/paper-note-publishing/SKILL.md` | Publishing local Markdown paper-reading notes into `content/papers/`, normalizing math, copying selected figures, configuring paper note rendering, or updating paper note conventions. | General repo work unrelated to paper notes, or read-only discussion of a paper without publishing it. |
+| Paper PDF Asset Maintenance | `.ai/skills/paper-pdf-asset-maintenance/SKILL.md` | Archiving paper PDFs outside the site repo, updating `pdf_asset` / `pdf_sha256` metadata, fetching local PDFs on demand, or maintaining the external `pdf-archive` repository contract. | Tasks that only affect public note rendering, list layout, or content writing with no PDF archive changes. |
 
 ## Repository Conventions
 
 - `.tmp/` is local scratch space for plans and temporary artifacts. It is ignored by Git.
+- `.cache/paper-pdfs/` stores locally fetched paper PDFs for maintenance only. It is ignored by Git.
 - `.maintenance/logs/` stores committed maintenance history. It is not published to the website.
 - `public/` is Hugo generated output. Do not edit or commit it.
 - Website source of truth lives in `content/`, `layouts/`, `assets/`, `static/`, `config/`, `scripts/`, and workflow files.

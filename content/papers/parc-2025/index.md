@@ -10,12 +10,14 @@ paper_title: "PARC: Physics-based Augmentation with Reinforcement Learning for C
 venue: "SIGGRAPH Conference Papers 2025"
 doi: "10.1145/3721238.3730616"
 cover: "fig2_parc_loop.png"
+pdf_asset: "parc-2025.pdf"
+pdf_sha256: "21ecb99722c43ef580e613492be763bb26d94ff05e534270652cbbd85ad66e78"
 ---
 
 论文: **PARC: Physics-based Augmentation with Reinforcement Learning for Character Controllers**  
 作者: Michael Xu, Yi Shi, KangKang Yin, Xue Bin Peng  
 会议: SIGGRAPH Conference Papers 2025  
-链接: [Project](https://xbpeng.github.io/projects/PARC/), [PDF](https://xbpeng.github.io/projects/PARC/PARC_2025.pdf), [Code](https://github.com/mshoe/PARC), [DOI](https://doi.org/10.1145/3721238.3730616)  
+链接: [Project](https://xbpeng.github.io/projects/PARC/), [Code](https://github.com/mshoe/PARC), [DOI](https://doi.org/10.1145/3721238.3730616)  
 
 ## 一句话结论
 

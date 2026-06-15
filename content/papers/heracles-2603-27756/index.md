@@ -9,12 +9,14 @@ categories: ["paper-notes"]
 paper_title: "Heracles: Bridging Precise Tracking and Generative Synthesis for General Humanoid Control"
 arxiv: "2603.27756"
 cover: "fig2_framework.png"
+pdf_asset: "heracles-2603-27756.pdf"
+pdf_sha256: "e2c970581aa1d1dc2c923a4e1e5f8ef26b6d7d74f53cf998ff9866fe494b75bf"
 ---
 
 论文: **Heracles: Bridging Precise Tracking and Generative Synthesis for General Humanoid Control**  
 作者: X-Humanoid Heracles Project Team, Zelin Tao, Zeran Su 等  
 版本: arXiv:2603.27756v2, submitted 2026-03-29, last revised 2026-03-31  
-链接: [arXiv](https://arxiv.org/abs/2603.27756), [PDF](https://arxiv.org/pdf/2603.27756), [Project](https://heracles-humanoid-control.github.io/)  
+链接: [arXiv](https://arxiv.org/abs/2603.27756), [Project](https://heracles-humanoid-control.github.io/)  
 
 ## 一句话结论
 
