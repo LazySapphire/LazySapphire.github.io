@@ -12,8 +12,8 @@ Use this skill when the task is about preserving source PDFs for paper-reading n
 This repository uses a split model:
 
 - `content/papers/` publishes the note and curated figures.
-- PDFs live in a separate GitHub repository as plain tracked files.
-- Local machines fetch PDFs on demand into `.cache/paper-pdfs/`.
+- PDFs live in a separate GitHub repository tracked by Git LFS.
+- Local machines keep an archive checkout and fetch PDFs on demand into `.cache/paper-pdfs/`.
 - Public pages do not provide PDF links.
 
 ## Repository Contract
@@ -23,6 +23,8 @@ Default external asset settings live in `config/_default/hugo.toml` under `[para
 Current convention:
 
 - GitHub repo: `LazySapphire/pdf-archive`
+- Remote URL: `git@github.com:LazySapphire/pdf-archive.git`
+- Archive checkout: `../pdf-archive`
 - Branch: `main`
 - PDF root: `papers/`
 - Cache dir: `.cache/paper-pdfs`
@@ -44,7 +46,10 @@ Use `<slug>.pdf` as the asset name unless there is a strong reason not to.
 ### 2. Upload Or Replace The PDF In The Asset Repo
 
 - Use the configured GitHub PDF repo.
-- Upload the file under `papers/<slug>.pdf`.
+- Install `git-lfs` on the machine before using this workflow.
+- Ensure the local archive checkout exists by running `scripts/bootstrap-pdf-archive.sh` if needed.
+- The bootstrap step only prepares a shallow checkout and LFS pointers. It does not download the full PDF archive.
+- Track the file under `papers/<slug>.pdf` with Git LFS.
 - Prefer a stable asset path such as `papers/heracles-2603-27756.pdf`.
 
 ### 3. Record Metadata In The Note
@@ -69,6 +74,7 @@ pdf_sha256: "<sha256>"
 Use:
 
 ```bash
+scripts/bootstrap-pdf-archive.sh
 python3 scripts/fetch-paper-pdf.py <slug>
 python3 scripts/fetch-paper-pdf.py --all
 python3 scripts/fetch-paper-pdf.py --dry-run --all
@@ -77,7 +83,7 @@ python3 scripts/fetch-paper-pdf.py --dry-run --all
 Expected behavior:
 
 - the script reads paper metadata from `content/papers/*/index.md`
-- builds the `raw.githubusercontent.com` URL from site config
+- prefers the local `pdf-archive` checkout and uses `git lfs pull` for the requested file
 - downloads into `.cache/paper-pdfs/`
 - verifies `pdf_sha256`
 - reuses a valid cached copy

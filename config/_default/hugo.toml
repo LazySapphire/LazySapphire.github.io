@@ -27,7 +27,8 @@ github = "https://github.com/LazySapphire"
 email = ""
 
 [params.paper_assets]
-github_repo = "LazySapphire/pdf-archive"
-repo_root = "papers"
-branch = "main"
+archive_remote = "git@github.com:LazySapphire/pdf-archive.git"
+archive_dir = "../pdf-archive"
+archive_branch = "main"
+archive_root = "papers"
 cache_dir = ".cache/paper-pdfs"

@@ -3,11 +3,11 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import os
 import re
+import shutil
+import subprocess
 import sys
-import urllib.error
-import urllib.parse
-import urllib.request
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -22,9 +22,10 @@ TOML_LINE_RE = re.compile(r'^([A-Za-z0-9_]+)\s*=\s*"(.*)"\s*$')
 
 @dataclass(frozen=True)
 class AssetConfig:
-    github_repo: str
-    repo_root: str
-    branch: str
+    archive_remote: str
+    archive_dir: Path
+    archive_branch: str
+    archive_root: str
     cache_dir: Path
 
 
@@ -54,24 +55,28 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--dry-run",
         action="store_true",
-        help="Validate metadata and print planned downloads without network access.",
+        help="Validate metadata and print planned actions without downloading LFS objects.",
     )
     parser.add_argument(
         "--force",
         action="store_true",
-        help="Re-download even if a cached file already matches the expected hash.",
+        help="Refresh the cached copy even if it already matches the expected hash.",
     )
     parser.add_argument(
-        "--repo",
-        help="Override the configured GitHub PDF repo, e.g. LazySapphire/pdf-archive.",
+        "--archive-remote",
+        help="Override the configured git remote for the PDF archive.",
     )
     parser.add_argument(
-        "--branch",
-        help="Override the configured Git branch that stores the PDFs.",
+        "--archive-dir",
+        help="Override the configured local checkout directory for the PDF archive.",
     )
     parser.add_argument(
-        "--repo-root",
-        help="Override the configured root directory inside the PDF repo.",
+        "--archive-branch",
+        help="Override the configured branch for the PDF archive checkout.",
+    )
+    parser.add_argument(
+        "--archive-root",
+        help="Override the configured root directory inside the PDF archive.",
     )
     parser.add_argument(
         "--cache-dir",
@@ -110,21 +115,32 @@ def load_asset_config(config_path: Path) -> AssetConfig:
         if match:
             values[match.group(1)] = match.group(2)
 
-    required = ("github_repo", "repo_root", "branch", "cache_dir")
+    required = (
+        "archive_remote",
+        "archive_dir",
+        "archive_branch",
+        "archive_root",
+        "cache_dir",
+    )
     missing = [key for key in required if not values.get(key)]
     if missing:
         raise ValueError(
             f"Missing [params.paper_assets] keys in {config_path}: {', '.join(missing)}"
         )
 
+    archive_dir = Path(values["archive_dir"])
+    if not archive_dir.is_absolute():
+        archive_dir = (REPO_ROOT / archive_dir).resolve()
+
     cache_dir = Path(values["cache_dir"])
     if not cache_dir.is_absolute():
-        cache_dir = REPO_ROOT / cache_dir
+        cache_dir = (REPO_ROOT / cache_dir).resolve()
 
     return AssetConfig(
-        github_repo=values["github_repo"],
-        repo_root=values["repo_root"],
-        branch=values["branch"],
+        archive_remote=values["archive_remote"],
+        archive_dir=archive_dir,
+        archive_branch=values["archive_branch"],
+        archive_root=values["archive_root"],
         cache_dir=cache_dir,
     )
 
@@ -181,11 +197,7 @@ def load_note(slug: str) -> PaperNote:
             f"Missing pdf_asset/pdf_sha256 metadata in {markdown_path}"
         )
 
-    title = (
-        front_matter.get("list_title")
-        or front_matter.get("title")
-        or slug
-    )
+    title = front_matter.get("list_title") or front_matter.get("title") or slug
 
     return PaperNote(
         slug=slug,
@@ -212,48 +224,157 @@ def sha256sum(path: Path) -> str:
     return digest.hexdigest()
 
 
-def asset_url(config: AssetConfig, note: PaperNote) -> str:
-    repo_root = config.repo_root.strip("/")
-    quoted_asset = urllib.parse.quote(note.asset_name)
-    return (
-        "https://raw.githubusercontent.com/"
-        f"{config.github_repo}/{urllib.parse.quote(config.branch)}/"
-        f"{urllib.parse.quote(repo_root)}/{quoted_asset}"
+def git_env(*, skip_smudge: bool = False) -> dict[str, str]:
+    env = os.environ.copy()
+    if skip_smudge:
+        env["GIT_LFS_SKIP_SMUDGE"] = "1"
+    return env
+
+
+def run_git(
+    args: list[str],
+    *,
+    cwd: Path,
+    env: dict[str, str] | None = None,
+    capture_output: bool = False,
+) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(
+        ["git", *args],
+        cwd=cwd,
+        env=env,
+        check=True,
+        text=True,
+        capture_output=capture_output,
     )
+
+
+def ensure_git_lfs_available() -> None:
+    try:
+        subprocess.run(
+            ["git", "lfs", "version"],
+            check=True,
+            text=True,
+            capture_output=True,
+        )
+    except (FileNotFoundError, subprocess.CalledProcessError) as exc:
+        raise FileNotFoundError(
+            "git-lfs is required for paper PDF maintenance. Install it on this machine first."
+        ) from exc
 
 
 def destination_path(config: AssetConfig, note: PaperNote) -> Path:
     return config.cache_dir / note.asset_name
 
 
-def download_file(url: str, destination: Path) -> None:
-    request = urllib.request.Request(
-        url,
-        headers={"User-Agent": "LazySapphire-paper-pdf-fetcher/1.0"},
+def archive_checkout_exists(config: AssetConfig) -> bool:
+    return (config.archive_dir / ".git").exists()
+
+
+def archive_pdf_path(config: AssetConfig, note: PaperNote) -> Path:
+    return config.archive_dir / config.archive_root.strip("/") / note.asset_name
+
+
+def archive_is_dirty(config: AssetConfig) -> bool:
+    result = run_git(
+        ["status", "--porcelain"],
+        cwd=config.archive_dir,
+        capture_output=True,
     )
-    destination.parent.mkdir(parents=True, exist_ok=True)
-    partial = destination.with_suffix(destination.suffix + ".partial")
-    if partial.exists():
-        partial.unlink()
+    return bool(result.stdout.strip())
 
-    with urllib.request.urlopen(request) as response, partial.open("wb") as handle:
-        while True:
-            chunk = response.read(1024 * 1024)
-            if not chunk:
-                break
-            handle.write(chunk)
 
-    partial.replace(destination)
+def ensure_archive_checkout(config: AssetConfig) -> None:
+    if archive_checkout_exists(config):
+        return
+
+    config.archive_dir.parent.mkdir(parents=True, exist_ok=True)
+    if config.archive_dir.exists() and any(config.archive_dir.iterdir()):
+        raise FileExistsError(
+            f"Archive directory exists but is not a git checkout: {config.archive_dir}"
+        )
+
+    run_git(
+        [
+            "clone",
+            "--depth=1",
+            "--branch",
+            config.archive_branch,
+            config.archive_remote,
+            str(config.archive_dir),
+        ],
+        cwd=REPO_ROOT,
+        env=git_env(skip_smudge=True),
+    )
+
+
+def sync_archive_checkout(config: AssetConfig) -> None:
+    if archive_is_dirty(config):
+        raise RuntimeError(
+            f"Archive checkout is dirty: {config.archive_dir}. "
+            "Commit/stash local changes before using remote sync."
+        )
+
+    run_git(
+        ["fetch", "origin", config.archive_branch, "--depth=1"],
+        cwd=config.archive_dir,
+        env=git_env(skip_smudge=True),
+    )
+    run_git(
+        ["checkout", config.archive_branch],
+        cwd=config.archive_dir,
+        env=git_env(skip_smudge=True),
+    )
+    run_git(
+        ["reset", "--hard", "FETCH_HEAD"],
+        cwd=config.archive_dir,
+        env=git_env(skip_smudge=True),
+    )
+
+
+def lfs_pull_pdf(config: AssetConfig, note: PaperNote) -> Path:
+    ensure_git_lfs_available()
+    ensure_archive_checkout(config)
+    sync_archive_checkout(config)
+
+    run_git(
+        ["lfs", "install", "--local"],
+        cwd=config.archive_dir,
+    )
+    run_git(
+        [
+            "lfs",
+            "pull",
+            "origin",
+            "--include",
+            f"{config.archive_root.strip('/')}/{note.asset_name}",
+        ],
+        cwd=config.archive_dir,
+    )
+
+    pdf_path = archive_pdf_path(config, note)
+    if not pdf_path.is_file():
+        raise FileNotFoundError(
+            f"Missing PDF after LFS pull: {pdf_path}. "
+            "Confirm the file exists in pdf-archive and has been pushed."
+        )
+    return pdf_path
+
+
+def cached_archive_pdf_if_valid(config: AssetConfig, note: PaperNote) -> Path | None:
+    pdf_path = archive_pdf_path(config, note)
+    if not pdf_path.is_file():
+        return None
+    if sha256sum(pdf_path) == note.sha256:
+        return pdf_path
+    return None
 
 
 def fetch_one(note: PaperNote, config: AssetConfig, *, dry_run: bool, force: bool) -> None:
-    url = asset_url(config, note)
     destination = destination_path(config, note)
+    archive_pdf = archive_pdf_path(config, note)
 
     if dry_run:
-        print(
-            f"[dry-run] {note.slug} -> {destination} <- {url}"
-        )
+        print(f"[dry-run] {note.slug} -> {destination} <- {archive_pdf}")
         return
 
     if destination.exists() and not force:
@@ -262,11 +383,21 @@ def fetch_one(note: PaperNote, config: AssetConfig, *, dry_run: bool, force: boo
             print(f"[cached] {note.slug} -> {destination}")
             return
         print(
-            f"[stale] {note.slug} cached hash {current_sha} != expected {note.sha256}; re-downloading",
+            f"[stale-cache] {note.slug} cached hash {current_sha} != expected {note.sha256}",
             file=sys.stderr,
         )
 
-    download_file(url, destination)
+    local_archive_pdf = cached_archive_pdf_if_valid(config, note)
+    if local_archive_pdf is not None:
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(local_archive_pdf, destination)
+        print(f"[local-archive] {note.slug} -> {destination}")
+        return
+
+    source_pdf = lfs_pull_pdf(config, note)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(source_pdf, destination)
+
     current_sha = sha256sum(destination)
     if current_sha != note.sha256:
         destination.unlink(missing_ok=True)
@@ -286,35 +417,47 @@ def main() -> int:
         print(f"error: {exc}", file=sys.stderr)
         return 1
 
-    if args.repo:
+    if args.archive_remote:
         config = AssetConfig(
-            github_repo=args.repo,
-            repo_root=config.repo_root,
-            branch=config.branch,
+            archive_remote=args.archive_remote,
+            archive_dir=config.archive_dir,
+            archive_branch=config.archive_branch,
+            archive_root=config.archive_root,
             cache_dir=config.cache_dir,
         )
-    if args.branch:
+    if args.archive_dir:
         config = AssetConfig(
-            github_repo=config.github_repo,
-            repo_root=config.repo_root,
-            branch=args.branch,
+            archive_remote=config.archive_remote,
+            archive_dir=Path(args.archive_dir).expanduser().resolve(),
+            archive_branch=config.archive_branch,
+            archive_root=config.archive_root,
             cache_dir=config.cache_dir,
         )
-    if args.repo_root:
+    if args.archive_branch:
         config = AssetConfig(
-            github_repo=config.github_repo,
-            repo_root=args.repo_root,
-            branch=config.branch,
+            archive_remote=config.archive_remote,
+            archive_dir=config.archive_dir,
+            archive_branch=args.archive_branch,
+            archive_root=config.archive_root,
+            cache_dir=config.cache_dir,
+        )
+    if args.archive_root:
+        config = AssetConfig(
+            archive_remote=config.archive_remote,
+            archive_dir=config.archive_dir,
+            archive_branch=config.archive_branch,
+            archive_root=args.archive_root,
             cache_dir=config.cache_dir,
         )
     if args.cache_dir:
-        cache_dir = Path(args.cache_dir)
+        cache_dir = Path(args.cache_dir).expanduser()
         if not cache_dir.is_absolute():
-            cache_dir = REPO_ROOT / cache_dir
+            cache_dir = (REPO_ROOT / cache_dir).resolve()
         config = AssetConfig(
-            github_repo=config.github_repo,
-            repo_root=config.repo_root,
-            branch=config.branch,
+            archive_remote=config.archive_remote,
+            archive_dir=config.archive_dir,
+            archive_branch=config.archive_branch,
+            archive_root=config.archive_root,
             cache_dir=cache_dir,
         )
 
@@ -332,15 +475,6 @@ def main() -> int:
             seen.add(slug)
             note = load_note(slug)
             fetch_one(note, config, dry_run=args.dry_run, force=args.force)
-        except urllib.error.HTTPError as exc:
-            failures += 1
-            print(
-                f"error: failed to download {target}: HTTP {exc.code} {exc.reason}",
-                file=sys.stderr,
-            )
-        except urllib.error.URLError as exc:
-            failures += 1
-            print(f"error: failed to download {target}: {exc.reason}", file=sys.stderr)
         except Exception as exc:
             failures += 1
             print(f"error: {exc}", file=sys.stderr)
