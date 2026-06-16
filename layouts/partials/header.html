@@ -16,9 +16,26 @@
             </a>
             <div class="nav-children" aria-label="{{ .Name }} submenu"{{ with .Params.i18n }} data-i18n-aria-label="{{ . }}_submenu"{{ end }}>
               {{ range .Children }}
-                <a class="nav-child" href="{{ .URL }}">
-                  <span{{ with .Params.i18n }} data-i18n="{{ . }}"{{ end }}>{{ .Name }}</span>
-                </a>
+                {{ if .HasChildren }}
+                  <div class="nav-subgroup">
+                    <a class="nav-child nav-subhead" href="{{ .URL }}">
+                      <span{{ with .Params.i18n }} data-i18n="{{ . }}"{{ end }}>{{ .Name }}</span>
+                    </a>
+                    <div class="nav-grandchildren" aria-label="{{ .Name }} submenu"{{ with .Params.i18n }} data-i18n-aria-label="{{ . }}_submenu"{{ end }}>
+                      {{ range .Children }}
+                        <a class="nav-child nav-grandchild{{ if .Params.external }} external{{ end }}" href="{{ .URL }}"{{ if .Params.external }} target="_blank" rel="noopener noreferrer"{{ end }}>
+                          {{ if .Params.external }}<span class="nav-external-mark" aria-hidden="true">↗</span>{{ end }}
+                          <span{{ with .Params.i18n }} data-i18n="{{ . }}"{{ end }}>{{ .Name }}</span>
+                        </a>
+                      {{ end }}
+                    </div>
+                  </div>
+                {{ else }}
+                  <a class="nav-child{{ if .Params.external }} external{{ end }}" href="{{ .URL }}"{{ if .Params.external }} target="_blank" rel="noopener noreferrer"{{ end }}>
+                    {{ if .Params.external }}<span class="nav-external-mark" aria-hidden="true">↗</span>{{ end }}
+                    <span{{ with .Params.i18n }} data-i18n="{{ . }}"{{ end }}>{{ .Name }}</span>
+                  </a>
+                {{ end }}
               {{ end }}
             </div>
           </div>

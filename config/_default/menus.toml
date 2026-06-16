@@ -7,16 +7,24 @@ params.i18n = "nav.home"
 
 [[main]]
 identifier = "papers"
-name = "Reading Notes"
+name = "Paper Reading"
 pageRef = "/papers"
 weight = 15
 params.i18n = "nav.reading_notes"
 
 [[main]]
+identifier = "collections"
+name = "Collections"
+pageRef = "/collections"
+weight = 18
+params.i18n = "nav.collections"
+
+[[main]]
 identifier = "notes"
 name = "Notes"
+parent = "collections"
 pageRef = "/notes"
-weight = 18
+weight = 19
 params.i18n = "nav.notes"
 
 [[main]]
@@ -43,6 +51,7 @@ params.i18n = "nav.robotics"
 [[main]]
 identifier = "tools"
 name = "Tools"
+parent = "collections"
 pageRef = "/tools"
 weight = 30
 params.i18n = "nav.tools"
@@ -60,6 +69,22 @@ parent = "tools"
 pageRef = "/tools/utils"
 weight = 32
 params.i18n = "nav.utils"
+
+[[main]]
+identifier = "dexterous-hands"
+name = "Dexterous Hands"
+parent = "collections"
+pageRef = "/collections/dexterous-hands"
+weight = 33
+params.i18n = "nav.dexterous_hands"
+
+[[main]]
+name = "Dexterous Hand Piano - Genesis AI"
+parent = "dexterous-hands"
+url = "https://www.youtube.com/watch?v=OWVLDTvH1Hk"
+weight = 34
+params.external = true
+params.i18n = "nav.genesis_piano"
 
 [[main]]
 identifier = "resume"

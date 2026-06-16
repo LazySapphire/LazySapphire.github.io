@@ -1,6 +1,6 @@
 ---
-title: "Paper Notes"
-description: "Reading notes for papers, reports, and technical references."
+title: "论文阅读"
+description: "论文、报告与技术资料的阅读笔记。"
 ---
 
-Paper reading notes will be collected here.
+论文阅读笔记会整理在这里。

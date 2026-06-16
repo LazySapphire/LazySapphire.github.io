@@ -7,7 +7,7 @@
       <p class="hero-text" data-i18n="home.headline">{{ $profile.headline }}</p>
       <div class="hero-actions">
         <a class="button primary" href="{{ "projects/" | relURL }}" data-i18n="nav.projects">Projects</a>
-        <a class="button" href="{{ "papers/" | relURL }}" data-i18n="nav.reading_notes">Reading Notes</a>
+        <a class="button" href="{{ "papers/" | relURL }}" data-i18n="nav.reading_notes">Paper Reading</a>
         {{ with .Site.Params.social.github }}
           <a class="button ghost external-link" href="{{ . }}" target="_blank" rel="noopener noreferrer">
             <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -33,7 +33,7 @@
   {{ end }}
 
   <section class="section-grid" aria-label="Site sections" data-i18n-aria-label="home.sections">
-    {{ range where .Site.Sections "Type" "in" (slice "papers" "notes" "projects" "tools") }}
+    {{ range where .Site.Sections "Type" "in" (slice "papers" "projects" "collections") }}
       <a class="section-tile" href="{{ .RelPermalink }}">
         <span class="section-title" data-i18n="section.{{ .Type }}.title">{{ .Title }}</span>
         <span class="section-desc" data-i18n="section.{{ .Type }}.description">{{ .Description | default .Summary }}</span>
