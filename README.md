@@ -55,7 +55,18 @@ scripts/check-production-artifacts.sh public
 
 新增内容时，优先放进 `content/` 下对应栏目。
 
+常用资料栏目：
+
+- `content/resources/`：资料速记，保存产品资讯、开源项目、在线工具、技术文章和临时收藏。
+- `content/paper-briefs/`：论文速读，从 arXiv、项目主页或论文标题快速整理出的论文卡片。
+- `content/surveys/`：主题综述，围绕研究方向、工具生态或技术趋势整理的轻量概览。
+- `content/papers/`：论文精读，保存长篇阅读笔记、公式和精选图片。
+
 论文阅读笔记放在 `content/papers/<slug>/`，每篇论文是一组 page bundle。页面里只展示笔记和精选图片，不直接提供 PDF 阅读入口。
+
+资料整理与 skill 使用说明见：
+
+- `docs/guide_资料整理与技能使用指南.md`
 
 ## 论文 PDF 同步
 
@@ -141,3 +152,10 @@ python3 scripts/fetch-paper-pdf.py <paper-slug>
 - `.ai/skills/`
 
 如果是仓库维护、内容发布、PDF 归档或结构调整，先看这里，再决定用哪个 skill。
+
+当前常用外部 skill 已安装在用户级 Codex skills 中：
+
+- `paper-search`
+- `pdf`
+- `playwright`
+- `literature-review`

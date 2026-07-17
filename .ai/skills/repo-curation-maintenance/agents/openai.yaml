@@ -1,0 +1,4 @@
+interface:
+  display_name: "Repo Curation Maintenance"
+  short_description: "Clean and organize saved entries"
+  default_prompt: "Use $repo-curation-maintenance to review inbox entries, tags, duplicates, and stale links in this repository."

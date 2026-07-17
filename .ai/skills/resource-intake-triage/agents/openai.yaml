@@ -1,0 +1,4 @@
+interface:
+  display_name: "Resource Intake Triage"
+  short_description: "Classify and publish saved links"
+  default_prompt: "Use $resource-intake-triage to turn this link or pasted news item into a triaged resource entry."

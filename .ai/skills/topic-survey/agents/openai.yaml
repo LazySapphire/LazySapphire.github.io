@@ -1,0 +1,4 @@
+interface:
+  display_name: "Topic Survey"
+  short_description: "Create lightweight topic surveys"
+  default_prompt: "Use $topic-survey to survey this research or technology topic and save a concise overview."

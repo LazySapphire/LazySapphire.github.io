@@ -1,0 +1,4 @@
+interface:
+  display_name: "Paper Brief Publishing"
+  short_description: "Create quick paper brief pages"
+  default_prompt: "Use $paper-brief-publishing to turn this arXiv link, project page, or paper title into a paper brief."
