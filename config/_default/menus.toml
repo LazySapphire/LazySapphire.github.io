@@ -13,11 +13,35 @@ weight = 15
 params.i18n = "nav.reading_notes"
 
 [[main]]
+identifier = "paper-briefs"
+name = "Paper Briefs"
+parent = "papers"
+pageRef = "/paper-briefs"
+weight = 16
+params.i18n = "nav.paper_briefs"
+
+[[main]]
 identifier = "collections"
 name = "Collections"
 pageRef = "/collections"
 weight = 18
 params.i18n = "nav.collections"
+
+[[main]]
+identifier = "resources"
+name = "Resources"
+parent = "collections"
+pageRef = "/resources"
+weight = 18
+params.i18n = "nav.resources"
+
+[[main]]
+identifier = "surveys"
+name = "Surveys"
+parent = "collections"
+pageRef = "/surveys"
+weight = 18
+params.i18n = "nav.surveys"
 
 [[main]]
 identifier = "notes"

@@ -5,6 +5,49 @@
       <h1>{{ .Title }}</h1>
       {{ with .Description }}<p>{{ . }}</p>{{ end }}
     </header>
+    {{ if or .Params.source_url .Params.paper_url .Params.project_url .Params.code_url .Params.arxiv .Params.resource_type .Params.status .Params.reading_level .Params.survey_type .Params.source_name .Params.venue .Params.use_case .Params.why_save }}
+      <dl class="page-meta">
+        {{ with .Params.resource_type }}
+          <div><dt>Type</dt><dd>{{ . }}</dd></div>
+        {{ end }}
+        {{ with .Params.status }}
+          <div><dt>Status</dt><dd>{{ . }}</dd></div>
+        {{ end }}
+        {{ with .Params.reading_level }}
+          <div><dt>Reading</dt><dd>{{ . }}</dd></div>
+        {{ end }}
+        {{ with .Params.survey_type }}
+          <div><dt>Survey</dt><dd>{{ . }}</dd></div>
+        {{ end }}
+        {{ with .Params.source_name }}
+          <div><dt>Source</dt><dd>{{ . }}</dd></div>
+        {{ end }}
+        {{ with .Params.venue }}
+          <div><dt>Venue</dt><dd>{{ . }}</dd></div>
+        {{ end }}
+        {{ with .Params.arxiv }}
+          <div><dt>arXiv</dt><dd><a href="https://arxiv.org/abs/{{ . }}" target="_blank" rel="noopener noreferrer">{{ . }}</a></dd></div>
+        {{ end }}
+        {{ with .Params.source_url }}
+          <div><dt>Source URL</dt><dd><a href="{{ . }}" target="_blank" rel="noopener noreferrer">{{ . }}</a></dd></div>
+        {{ end }}
+        {{ with .Params.paper_url }}
+          <div><dt>Paper</dt><dd><a href="{{ . }}" target="_blank" rel="noopener noreferrer">{{ . }}</a></dd></div>
+        {{ end }}
+        {{ with .Params.project_url }}
+          <div><dt>Project</dt><dd><a href="{{ . }}" target="_blank" rel="noopener noreferrer">{{ . }}</a></dd></div>
+        {{ end }}
+        {{ with .Params.code_url }}
+          <div><dt>Code</dt><dd><a href="{{ . }}" target="_blank" rel="noopener noreferrer">{{ . }}</a></dd></div>
+        {{ end }}
+        {{ with .Params.use_case }}
+          <div><dt>Use Case</dt><dd>{{ . }}</dd></div>
+        {{ end }}
+        {{ with .Params.why_save }}
+          <div><dt>Why Save</dt><dd>{{ . }}</dd></div>
+        {{ end }}
+      </dl>
+    {{ end }}
     <div class="content prose">
       {{ .Content }}
     </div>

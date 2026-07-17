@@ -28,7 +28,20 @@
             {{ end }}
             <div class="list-body">
               <h2>{{ $listTitle }}</h2>
+              {{ if or .Params.resource_type .Params.status .Params.reading_level .Params.survey_type .Params.source_name .Params.arxiv .Params.venue }}
+                <div class="entry-meta" aria-label="{{ $listTitle }} metadata">
+                  {{ with .Params.resource_type }}<span>Type: {{ . }}</span>{{ end }}
+                  {{ with .Params.status }}<span>Status: {{ . }}</span>{{ end }}
+                  {{ with .Params.reading_level }}<span>Read: {{ . }}</span>{{ end }}
+                  {{ with .Params.survey_type }}<span>Survey: {{ . }}</span>{{ end }}
+                  {{ with .Params.source_name }}<span>Source: {{ . }}</span>{{ end }}
+                  {{ with .Params.arxiv }}<span>arXiv: {{ . }}</span>{{ end }}
+                  {{ with .Params.venue }}<span>{{ . }}</span>{{ end }}
+                </div>
+              {{ end }}
               {{ with .Description }}<p>{{ . }}</p>{{ else }}{{ with .Summary }}<p>{{ . }}</p>{{ end }}{{ end }}
+              {{ with .Params.use_case }}<p class="list-note">{{ . }}</p>{{ end }}
+              {{ with .Params.why_save }}<p class="list-note">{{ . }}</p>{{ end }}
             </div>
           </a>
         </article>
