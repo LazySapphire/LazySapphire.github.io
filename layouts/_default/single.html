@@ -5,6 +5,25 @@
       <h1>{{ .Title }}</h1>
       {{ with .Description }}<p>{{ . }}</p>{{ end }}
     </header>
+    {{ with .Params.cover }}
+      {{ $cover := . }}
+      <figure class="page-cover">
+        {{ with $.Resources.GetMatch $cover }}
+          {{ $image := .Fit "1200x675" }}
+          <img src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}" alt="{{ $.Title }}">
+        {{ else }}
+          <img src="{{ $cover | relURL }}" alt="{{ $.Title }}">
+        {{ end }}
+        {{ if or $.Params.cover_caption $.Params.cover_source }}
+          <figcaption>
+            {{ with $.Params.cover_caption }}<span>{{ . }}</span>{{ end }}
+            {{ with $.Params.cover_source }}
+              <span>Image source: <a href="{{ . }}" target="_blank" rel="noopener noreferrer">{{ $.Params.cover_credit | default $.Params.source_name | default "source" }}</a></span>
+            {{ end }}
+          </figcaption>
+        {{ end }}
+      </figure>
+    {{ end }}
     {{ if or .Params.source_url .Params.paper_url .Params.project_url .Params.code_url .Params.arxiv .Params.resource_type .Params.status .Params.reading_level .Params.survey_type .Params.source_name .Params.venue .Params.use_case .Params.why_save }}
       <dl class="page-meta">
         {{ with .Params.resource_type }}

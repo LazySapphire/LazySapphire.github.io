@@ -36,6 +36,10 @@ date: "YYYY-MM-DD"
 description: ""
 source_url: ""
 source_name: ""
+cover: ""
+cover_caption: ""
+cover_source: ""
+cover_credit: ""
 resource_type: "web-tool"
 status: "triaged"
 topics: []
@@ -74,6 +78,8 @@ Default to `triaged` when you have inspected the source. Do not over-promote ent
 - Prefer Chinese prose unless the source title is best left in English.
 - Do not hype. Explain what it does, what it may be useful for, and any obvious limitation.
 - Preserve source attribution with `source_url` and `source_name`.
+- Prefer visually useful entries. When an official project page, product page, paper page, or repository provides a relevant image, save one small cover image in the page bundle, set `cover`, and include `cover_source` / `cover_credit`.
+- For resources with diagrams, screenshots, architecture images, or product visuals, add one inline figure when it improves later scanning. Use Markdown image syntax or Hugo's `figure` shortcode; raw HTML figures may be stripped. Do not use decorative stock images.
 - For online tools, always mention whether it appears to require login, local install, API key, or payment.
 - For open-source repositories, include license, last activity, language, and maturity only if readily visible.
 - Do not save large downloaded artifacts in the site repo.

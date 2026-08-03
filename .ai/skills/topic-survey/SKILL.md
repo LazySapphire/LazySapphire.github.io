@@ -34,6 +34,10 @@ Create a concise, evolving overview page for a topic. This is lighter than a for
 title: ""
 date: "YYYY-MM-DD"
 description: ""
+cover: ""
+cover_caption: ""
+cover_source: ""
+cover_credit: ""
 status: "draft"
 survey_type: "lightweight"
 topics: []
@@ -69,4 +73,6 @@ The survey should summarize the shape of the field, not just list links.
 - Use dates for current claims, especially product launches and recent papers.
 - Separate facts from interpretation.
 - Prefer primary sources for product and project claims.
+- Use a representative cover image when a topic has a clear official visual, diagram, or ecosystem image. Attribute the source and avoid generic decoration.
+- Use Markdown image syntax or Hugo's `figure` shortcode for inline visuals; raw HTML figures may be stripped.
 - Keep the page easy to update. Avoid overlong prose and formal citation machinery unless the user asks for it.

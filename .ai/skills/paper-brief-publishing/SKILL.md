@@ -42,6 +42,10 @@ title: ""
 list_title: ""
 date: "YYYY-MM-DD"
 description: ""
+cover: ""
+cover_caption: ""
+cover_source: ""
+cover_credit: ""
 paper_title: ""
 authors: []
 year:
@@ -88,4 +92,6 @@ If the user later asks for a deep read, create or move to `content/papers/<slug>
 - Do not fabricate metadata. If a field cannot be verified, omit it or leave it empty.
 - Clearly distinguish paper claims from your inference.
 - Prefer stable slugs: `<short-name>-<arxiv-id>` for arXiv papers, otherwise `<short-name>-<year>`.
+- When an official project page or paper page has a representative figure, save one small cover image in the page bundle, set `cover`, and attribute it with `cover_source` / `cover_credit`.
+- Use Markdown image syntax or Hugo's `figure` shortcode for inline visuals; raw HTML figures may be stripped.
 - Keep tags stable and reusable. Good examples: `robotics`, `llm-agent`, `simulation`, `dexterous-hand`, `paper-tooling`, `offline-rl`.

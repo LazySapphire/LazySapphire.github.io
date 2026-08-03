@@ -5,6 +5,10 @@ draft: true
 description: ""
 source_url: ""
 source_name: ""
+cover: ""
+cover_caption: ""
+cover_source: ""
+cover_credit: ""
 resource_type: "article"
 status: "inbox"
 topics: []
@@ -21,4 +25,3 @@ why_save: ""
 ## Possible Uses
 
 ## Notes
-

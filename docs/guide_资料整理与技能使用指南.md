@@ -30,11 +30,17 @@ resource_type: "web-tool"
 status: "triaged"
 source_url: ""
 source_name: ""
+cover: ""
+cover_caption: ""
+cover_source: ""
+cover_credit: ""
 use_case: ""
 why_save: ""
 topics: []
 tags: []
 ```
+
+优先使用官方项目页、产品页、论文项目页或仓库提供的相关图片作为封面；必须保留 `cover_source` 和 `cover_credit`，避免使用泛化装饰图。
 
 ### 论文速读
 
@@ -107,4 +113,3 @@ content/surveys/<topic-slug>/index.md
 3. 统一 `topics` 和 `tags`。
 4. 标记失效或过时资料为 `archived`。
 5. 把值得深读的论文从 `paper-briefs` 提升到 `papers`。
-

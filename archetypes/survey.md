@@ -3,6 +3,10 @@ title: "{{ replace .Name "-" " " | title }}"
 date: "{{ .Date }}"
 draft: true
 description: ""
+cover: ""
+cover_caption: ""
+cover_source: ""
+cover_credit: ""
 status: "draft"
 survey_type: "lightweight"
 topics: []
@@ -23,4 +27,3 @@ time_window: ""
 ## Open Questions
 
 ## Related Entries
-

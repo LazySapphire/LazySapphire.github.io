@@ -4,6 +4,10 @@ list_title: ""
 date: "{{ .Date }}"
 draft: true
 description: ""
+cover: ""
+cover_caption: ""
+cover_source: ""
+cover_credit: ""
 paper_title: ""
 authors: []
 year:
@@ -31,4 +35,3 @@ categories: ["paper-briefs"]
 ## Limitations Or Questions
 
 ## Links
-
