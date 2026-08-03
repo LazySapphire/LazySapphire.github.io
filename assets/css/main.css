@@ -182,10 +182,10 @@ a:hover {
 .nav-children {
   position: absolute;
   right: 0;
-  top: calc(100% + 0.35rem);
+  top: 100%;
   display: none;
   min-width: 180px;
-  padding: 0.4rem;
+  padding: 0.75rem 0.4rem 0.4rem;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--surface);
@@ -628,6 +628,7 @@ h2 {
     position: static;
     display: grid;
     margin: 0 0 0.5rem 0.75rem;
+    padding: 0.4rem;
     border: 0;
     box-shadow: none;
   }
