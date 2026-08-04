@@ -50,6 +50,12 @@ Being-H0.8 是 BeingBeyond 在 2026-07-28 发布的具身基础模型项目，�
 - “全球首个”“首个基于人类视频数据”等表述来自官方新闻或媒体报道，现阶段按发布方/报道说法保存，不视为独立验证结论。
 - 量子位报道对“隐式触觉 WAM”的解释较清晰：重点不是像素级重建未来画面，而是在 latent space 中预测接触与交互后果，并用预测出的潜在状态调节动作。
 
+## Related Entries
+
+- [Being-H0.7](/paper-briefs/being-h07-2605-00078/)
+- [WAM survey](/surveys/wam/)
+- [Fast-WAM](/paper-briefs/fast-wam-2603-16666/)
+
 来源:
 
 - [Being-H0.8 official project page](https://research.beingbeyond.com/being-h08)

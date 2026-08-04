@@ -57,6 +57,12 @@ Fast-WAM 保留训练期的视频协同训练，但推理时跳过未来视频�
 - 结论依赖特定 backbone、benchmark 和 action chunk 设置；在更长时域规划、更强闭环反馈或触觉场景下，显式未来建模是否仍可省略，需要和后续 AHA-WAM、VT-WAM 等工作对比。
 - 它更像“WAM 必须先想象未来吗？”这个问题的强反例，不等于否定所有未来预测在机器人控制中的价值。
 
+## Related Entries
+
+- [Being-H0.7](/paper-briefs/being-h07-2605-00078/)
+- [Being-H0.8](/resources/being-h08/)
+- [WAM survey](/surveys/wam/)
+
 ## Links
 
 - [arXiv:2603.16666](https://arxiv.org/abs/2603.16666)
