@@ -1,7 +1,7 @@
 ---
 title: "Being-H0.8"
 date: "2026-08-03"
-description: "BeingBeyond 发布的 Latent Tactile World-Action Model，把触觉模态引入大规模人类视频预训练和接触丰富的机器人操作。"
+description: "BeingBeyond 发布的带触觉隐式 WAM，把触觉模态引入大规模人类视频预训练和接触丰富的机器人操作。"
 source_url: "https://research.beingbeyond.com/being-h08"
 source_name: "BeingBeyond Research"
 cover: "teaser.webp"
@@ -20,7 +20,7 @@ why_save: "它把 Being-H0.7 的 latent WAM 路线扩展到触觉、接触反馈
 
 ## What It Is
 
-Being-H0.8 是 BeingBeyond 在 2026-07-28 发布的具身基础模型项目，官方定位为 **Latent Tactile World-Action Model at Scale**。它延续 Being-H0.7 的 latent World-Action Model 路线，但把建模重点从视觉预测扩展到触觉感知和接触丰富的交互。
+Being-H0.8 是 BeingBeyond 在 2026-07-28 发布的具身基础模型项目，官方定位为 **Latent Tactile World-Action Model at Scale**。它可以先记作一条带触觉的隐式 WAM：延续 Being-H0.7 的 latent World-Action Model 路线，但把建模重点从视觉预测扩展到触觉感知和接触丰富的交互。
 
 官方项目页称，Being-H0.8 将触觉视为共享 latent world state 中与动作相关的一部分。训练时使用未来视觉和触觉证据监督当前可部署的 latent 表示；部署时移除未来信息和 posterior 分支，只保留可用的 prior 表示进行动作生成。
 
@@ -55,6 +55,8 @@ Being-H0.8 是 BeingBeyond 在 2026-07-28 发布的具身基础模型项目，�
 - [Being-H0.7](/paper-briefs/being-h07-2605-00078/)
 - [WAM survey](/surveys/wam/)
 - [Fast-WAM](/paper-briefs/fast-wam-2603-16666/)
+- [Faster-WAM](/paper-briefs/faster-wam-2608-02365/)
+- [破壳机器人 UAG 架构](/resources/poke-robot-uag-wam/)
 
 来源:
 

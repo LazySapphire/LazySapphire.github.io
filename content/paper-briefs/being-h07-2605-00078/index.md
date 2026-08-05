@@ -67,3 +67,5 @@ VLA 直接从观测到动作, 容易学到 shortcut。老式 WAM 往往靠测试
 - [WAM survey](/surveys/wam/)
 - [Being-H0.8](/resources/being-h08/)
 - [Fast-WAM](/paper-briefs/fast-wam-2603-16666/)
+- [Faster-WAM](/paper-briefs/faster-wam-2608-02365/)
+- [破壳机器人 UAG 架构](/resources/poke-robot-uag-wam/)

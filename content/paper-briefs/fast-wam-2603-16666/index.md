@@ -61,6 +61,7 @@ Fast-WAM 保留训练期的视频协同训练，但推理时跳过未来视频�
 
 - [Being-H0.7](/paper-briefs/being-h07-2605-00078/)
 - [Being-H0.8](/resources/being-h08/)
+- [Faster-WAM](/paper-briefs/faster-wam-2608-02365/)
 - [WAM survey](/surveys/wam/)
 
 ## Links
