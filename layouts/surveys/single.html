@@ -1,0 +1,92 @@
+{{ define "main" }}
+  <article class="article survey-article">
+    <header class="survey-hero">
+      <div class="survey-hero-copy">
+        <p class="eyebrow">Topic Survey</p>
+        <h1>{{ .Title }}</h1>
+        {{ with .Description }}<p>{{ . }}</p>{{ end }}
+      </div>
+
+      {{ with .Params.cover }}
+        {{ $cover := . }}
+        <figure class="survey-cover">
+          {{ with $.Resources.GetMatch $cover }}
+            {{ $image := .Fit "1280x720" }}
+            <img src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}" alt="{{ $.Title }}">
+          {{ else }}
+            <img src="{{ $cover | relURL }}" alt="{{ $.Title }}">
+          {{ end }}
+          {{ if or $.Params.cover_caption $.Params.cover_source }}
+            <figcaption>
+              {{ with $.Params.cover_caption }}<span>{{ . }}</span>{{ end }}
+              {{ with $.Params.cover_source }}
+                <span>Image source: <a href="{{ . }}" target="_blank" rel="noopener noreferrer">{{ $.Params.cover_credit | default $.Params.source_name | default "source" }}</a></span>
+              {{ end }}
+            </figcaption>
+          {{ end }}
+        </figure>
+      {{ end }}
+    </header>
+
+    {{ if or .Params.status .Params.survey_type .Params.source_count .Params.time_window }}
+      <dl class="page-meta survey-meta">
+        {{ with .Params.status }}
+          <div><dt>Status</dt><dd>{{ . }}</dd></div>
+        {{ end }}
+        {{ with .Params.survey_type }}
+          <div><dt>Survey</dt><dd>{{ . }}</dd></div>
+        {{ end }}
+        {{ with .Params.source_count }}
+          <div><dt>Sources</dt><dd>{{ . }}</dd></div>
+        {{ end }}
+        {{ with .Params.time_window }}
+          <div><dt>Window</dt><dd>{{ . }}</dd></div>
+        {{ end }}
+      </dl>
+    {{ end }}
+
+    <section class="survey-intro prose">
+      {{ .Content }}
+    </section>
+
+    {{ with .Params.timeline_items }}
+      <section class="survey-timeline" aria-labelledby="survey-timeline-title">
+        <div class="survey-section-head">
+          <p class="eyebrow">Reverse Timeline</p>
+          <h2 id="survey-timeline-title">项目脉络</h2>
+          <p>按时间逆序排列, 把每个项目放到 WAM 家族树的对应分支上。</p>
+        </div>
+        <ol class="timeline-list">
+          {{ range $index, $item := sort . "date" "desc" }}
+            {{ $fallbackSide := cond (eq (mod $index 2) 0) "left" "right" }}
+            {{ $side := $item.side | default $fallbackSide }}
+            <li class="timeline-item timeline-{{ $side }}">
+              <article class="timeline-card">
+                <div class="timeline-card-head">
+                  {{ with $item.date }}<time class="timeline-date" datetime="{{ . }}">{{ . }}</time>{{ end }}
+                  {{ with $item.badge }}<span class="timeline-badge">{{ . }}</span>{{ end }}
+                </div>
+                <h3>
+                  {{ with $item.url }}
+                    <a href="{{ . }}">{{ $item.title }}</a>
+                  {{ else }}
+                    {{ $item.title }}
+                  {{ end }}
+                </h3>
+                {{ with $item.summary }}<p>{{ . }}</p>{{ end }}
+                {{ with $item.branches }}
+                  <ul class="timeline-branches">
+                    {{ range . }}
+                      <li>{{ . }}</li>
+                    {{ end }}
+                  </ul>
+                {{ end }}
+              </article>
+              <span class="timeline-node" aria-hidden="true"></span>
+            </li>
+          {{ end }}
+        </ol>
+      </section>
+    {{ end }}
+  </article>
+{{ end }}
