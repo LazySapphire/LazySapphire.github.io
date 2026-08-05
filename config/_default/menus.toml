@@ -13,12 +13,11 @@ weight = 15
 params.i18n = "nav.reading_notes"
 
 [[main]]
-identifier = "paper-briefs"
-name = "Paper Briefs"
-parent = "papers"
-pageRef = "/paper-briefs"
-weight = 16
-params.i18n = "nav.paper_briefs"
+identifier = "notes"
+name = "Notes"
+pageRef = "/notes"
+weight = 17
+params.i18n = "nav.notes"
 
 [[main]]
 identifier = "collections"
@@ -44,33 +43,11 @@ weight = 18
 params.i18n = "nav.surveys"
 
 [[main]]
-identifier = "notes"
-name = "Notes"
-parent = "collections"
-pageRef = "/notes"
-weight = 19
-params.i18n = "nav.notes"
-
-[[main]]
 identifier = "projects"
 name = "Projects"
 pageRef = "/projects"
 weight = 20
 params.i18n = "nav.projects"
-
-[[main]]
-name = "Offline RL"
-parent = "projects"
-pageRef = "/projects/offline-rl"
-weight = 21
-params.i18n = "nav.offline_rl"
-
-[[main]]
-name = "Robotics"
-parent = "projects"
-pageRef = "/projects/robotics"
-weight = 22
-params.i18n = "nav.robotics"
 
 [[main]]
 identifier = "tools"

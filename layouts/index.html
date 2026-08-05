@@ -33,7 +33,7 @@
   {{ end }}
 
   <section class="section-grid" aria-label="Site sections" data-i18n-aria-label="home.sections">
-    {{ range where .Site.Sections "Type" "in" (slice "resources" "paper-briefs" "surveys" "papers" "projects" "collections") }}
+    {{ range where .Site.Sections "Type" "in" (slice "papers" "resources" "surveys" "projects" "notes" "collections") }}
       <a class="section-tile" href="{{ .RelPermalink }}">
         <span class="section-title" data-i18n="section.{{ .Type }}.title">{{ .Title }}</span>
         <span class="section-desc" data-i18n="section.{{ .Type }}.description">{{ .Description | default .Summary }}</span>

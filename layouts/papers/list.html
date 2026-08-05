@@ -1,0 +1,159 @@
+{{ define "main" }}
+  {{ $papers := where .Site.RegularPages "Section" "in" (slice "papers" "paper-briefs") }}
+  {{ $papers = sort $papers "Date" "desc" }}
+  {{ $deepPapers := where $papers "Section" "papers" }}
+  {{ $briefPapers := where $papers "Section" "paper-briefs" }}
+  {{ $tagSet := slice }}
+  {{ range $papers }}
+    {{ with .Params.tags }}
+      {{ range . }}
+        {{ $tagSet = $tagSet | append . }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+  {{ $tags := sort (uniq $tagSet) }}
+
+  <section class="library-page paper-library" data-paper-library>
+    <aside class="library-left" aria-label="论文目录">
+      <div class="library-pane library-tree">
+        <div class="library-pane-head">
+          <span>目录</span>
+          <span class="library-count">{{ len $papers }}</span>
+        </div>
+        <button class="library-node is-active" type="button" data-paper-filter="all">
+          <span>我的文库</span>
+          <span>{{ len $papers }}</span>
+        </button>
+        <button class="library-node" type="button" data-paper-filter="reading">
+          <span>论文精读</span>
+          <span>{{ len $deepPapers }}</span>
+        </button>
+        <button class="library-node" type="button" data-paper-filter="brief">
+          <span>论文速读</span>
+          <span>{{ len $briefPapers }}</span>
+        </button>
+        <button class="library-node" type="button" data-paper-filter="current">
+          <span>当前关注</span>
+          <span>{{ len (where $papers "Params.status" "current") }}</span>
+        </button>
+        <button class="library-node" type="button" data-paper-filter="triaged">
+          <span>已归档线索</span>
+          <span>{{ len (where $papers "Params.status" "triaged") }}</span>
+        </button>
+      </div>
+
+      <div class="library-pane library-tags" aria-label="论文标签">
+        <div class="library-pane-head">
+          <span>标签</span>
+          <span class="library-count">{{ len $tags }}</span>
+        </div>
+        <div class="tag-cloud">
+          <button class="tag-chip is-active" type="button" data-paper-tag="all">全部</button>
+          {{ range $tags }}
+            <button class="tag-chip" type="button" data-paper-tag="{{ . }}">{{ . }}</button>
+          {{ end }}
+        </div>
+      </div>
+    </aside>
+
+    <section class="library-main" aria-label="论文列表">
+      <div class="library-toolbar">
+        <div>
+          <p class="eyebrow">Paper Library</p>
+          <h1>{{ .Title }}</h1>
+        </div>
+        <label class="library-search">
+          <span>搜索</span>
+          <input type="search" data-paper-search placeholder="标题、作者、标签">
+        </label>
+      </div>
+
+      <div class="paper-table-wrap">
+        <table class="paper-table">
+          <thead>
+            <tr>
+              <th>标题</th>
+              <th>作者</th>
+              <th>年</th>
+              <th>类型</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{ range $index, $page := $papers }}
+              {{ $listTitle := $page.Params.list_title | default $page.Title }}
+              {{ $paperTitle := $page.Params.paper_title | default $page.Title }}
+              {{ $authors := "" }}
+              {{ with $page.Params.authors }}
+                {{ $authors = delimit . ", " }}
+              {{ end }}
+              {{ $year := "" }}
+              {{ with $page.Params.year }}
+                {{ $year = printf "%v" . }}
+              {{ else }}
+                {{ $year = $page.Date.Format "2006" }}
+              {{ end }}
+              {{ $venue := $page.Params.venue | default "" }}
+              {{ $status := $page.Params.status | default "" }}
+              {{ $tagsForPage := $page.Params.tags | default (slice) }}
+              {{ $topicsForPage := $page.Params.topics | default (slice) }}
+              {{ $kind := cond (eq $page.Section "papers") "精读" "速读" }}
+              {{ $group := cond (eq $page.Section "papers") "reading" "brief" }}
+              {{ $coverURL := "" }}
+              {{ with $page.Params.cover }}
+                {{ $cover := . }}
+                {{ with $page.Resources.GetMatch $cover }}
+                  {{ $image := .Fit "520x292" }}
+                  {{ $coverURL = $image.RelPermalink }}
+                {{ else }}
+                  {{ $coverURL = ($cover | relURL) }}
+                {{ end }}
+              {{ end }}
+              {{ $detail := dict "title" $listTitle "paperTitle" $paperTitle "authors" $authors "year" $year "venue" $venue "status" $status "kind" $kind "description" ($page.Description | default $page.Summary | plainify) "url" $page.RelPermalink "paperUrl" ($page.Params.paper_url | default "") "projectUrl" ($page.Params.project_url | default "") "codeUrl" ($page.Params.code_url | default "") "doi" ($page.Params.doi | default "") "arxiv" ($page.Params.arxiv | default "") "tags" $tagsForPage "topics" $topicsForPage "cover" $coverURL }}
+              <tr class="paper-row{{ if eq $index 0 }} is-selected{{ end }}" role="button" tabindex="0" data-paper-item data-paper-group="{{ $group }}" data-paper-status="{{ $status }}" data-paper-tags="{{ delimit $tagsForPage "|" }}" data-paper-search-text="{{ printf "%s %s %s %s %s" $listTitle $paperTitle $authors (delimit $tagsForPage " ") (delimit $topicsForPage " ") }}" data-paper-detail="{{ $detail | jsonify }}">
+                <td>
+                  <span class="paper-title">{{ $listTitle }}</span>
+                  {{ with $page.Description }}<span class="paper-subtitle">{{ . }}</span>{{ end }}
+                </td>
+                <td>{{ $authors | default "未记录" }}</td>
+                <td>{{ $year }}</td>
+                <td><span class="paper-kind">{{ $kind }}</span></td>
+              </tr>
+            {{ end }}
+          </tbody>
+        </table>
+        <p class="paper-empty" data-paper-empty hidden>没有匹配条目</p>
+      </div>
+    </section>
+
+    <aside class="library-detail" aria-label="论文详情">
+      <div class="detail-tabs">
+        <span class="is-active">信息</span>
+        <span>笔记</span>
+        <span>标签</span>
+        <span>关联文献</span>
+      </div>
+      <div class="detail-body" data-paper-detail-body>
+        <img class="detail-cover" alt="" data-detail-cover hidden>
+        <p class="detail-kind" data-detail-kind></p>
+        <h2 data-detail-title></h2>
+        <p class="detail-paper-title" data-detail-paper-title></p>
+        <dl class="detail-list">
+          <div><dt>作者</dt><dd data-detail-authors></dd></div>
+          <div><dt>年份</dt><dd data-detail-year></dd></div>
+          <div><dt>来源</dt><dd data-detail-venue></dd></div>
+          <div><dt>状态</dt><dd data-detail-status></dd></div>
+          <div><dt>arXiv</dt><dd data-detail-arxiv></dd></div>
+          <div><dt>DOI</dt><dd data-detail-doi></dd></div>
+        </dl>
+        <p class="detail-description" data-detail-description></p>
+        <div class="detail-tags" data-detail-tags></div>
+        <div class="detail-actions">
+          <a class="button primary" data-detail-open>打开条目</a>
+          <a class="button" data-detail-paper hidden>论文</a>
+          <a class="button" data-detail-project hidden>项目页</a>
+          <a class="button" data-detail-code hidden>代码</a>
+        </div>
+      </div>
+    </aside>
+  </section>
+{{ end }}

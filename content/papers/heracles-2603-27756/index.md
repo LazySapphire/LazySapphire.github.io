@@ -7,7 +7,12 @@ math: true
 tags: ["humanoid-control", "flow-matching", "robotics"]
 categories: ["paper-notes"]
 paper_title: "Heracles: Bridging Precise Tracking and Generative Synthesis for General Humanoid Control"
+authors: ["X-Humanoid Heracles Project Team", "Zelin Tao", "Zeran Su"]
+year: 2026
+venue: "arXiv"
 arxiv: "2603.27756"
+paper_url: "https://arxiv.org/abs/2603.27756"
+project_url: "https://heracles-humanoid-control.github.io/"
 cover: "fig2_framework.png"
 pdf_asset: "heracles-2603-27756.pdf"
 pdf_sha256: "e2c970581aa1d1dc2c923a4e1e5f8ef26b6d7d74f53cf998ff9866fe494b75bf"

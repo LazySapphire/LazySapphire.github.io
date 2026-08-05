@@ -1,6 +1,6 @@
 ---
-title: "Projects"
-description: "Projects and research work."
+title: "项目"
+description: "项目、技术报告与研究工作。"
 ---
 
-Project pages will be organized here.
+这里保存已经形成方法、实现或技术报告的项目条目。

@@ -1,7 +1,4 @@
 ---
-title: "Notes"
-description: "Miscellaneous notes, technical memos, and short essays."
+title: "随笔"
+description: "短随笔、松散想法和非项目化记录。"
 ---
-
-Short notes, technical memos, and loose writing will be collected here.
-

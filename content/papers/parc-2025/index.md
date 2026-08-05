@@ -7,8 +7,13 @@ math: true
 tags: ["character-control", "motion-generation", "reinforcement-learning", "physics-based-animation"]
 categories: ["paper-notes"]
 paper_title: "PARC: Physics-based Augmentation with Reinforcement Learning for Character Controllers"
+authors: ["Michael Xu", "Yi Shi", "KangKang Yin", "Xue Bin Peng"]
+year: 2025
 venue: "SIGGRAPH Conference Papers 2025"
 doi: "10.1145/3721238.3730616"
+paper_url: "https://doi.org/10.1145/3721238.3730616"
+project_url: "https://xbpeng.github.io/projects/PARC/"
+code_url: "https://github.com/mshoe/PARC"
 cover: "fig2_parc_loop.png"
 pdf_asset: "parc-2025.pdf"
 pdf_sha256: "21ecb99722c43ef580e613492be763bb26d94ff05e534270652cbbd85ad66e78"

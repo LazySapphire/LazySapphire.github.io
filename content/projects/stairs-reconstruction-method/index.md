@@ -5,7 +5,7 @@ description: "记录将平地策略 rollout 重建为阶梯地形参考轨迹的
 date: "2026-06-05"
 math: true
 tags: ["stairs", "data-reconstruction", "robotics"]
-categories: ["notes"]
+categories: ["projects"]
 status: "current"
 direction: "stairs / data_reconstruction"
 ---
