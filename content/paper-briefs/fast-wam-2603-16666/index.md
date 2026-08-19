@@ -18,7 +18,7 @@ project_url: "https://yuantianyuan01.github.io/FastWAM/"
 code_url: "https://github.com/yuantianyuan01/FastWAM"
 status: "triaged"
 reading_level: "brief"
-topics: ["robotics", "embodied-ai", "world-action-model", "robot-learning"]
+topics: ["WAM", "Robotic"]
 tags: ["fast-wam", "wam", "video-co-training", "latent-world-model", "robot-manipulation", "flow-matching"]
 categories: ["paper-briefs"]
 ---

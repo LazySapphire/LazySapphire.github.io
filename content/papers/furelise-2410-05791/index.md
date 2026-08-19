@@ -5,6 +5,7 @@ description: "从多视角视频重建 3D 钢琴手部动作，再用 diffusion 
 date: "2026-08-19"
 math: true
 tags: ["motion-capture", "hand-motion", "diffusion-model", "reinforcement-learning", "piano-playing", "physics-based-control"]
+topics: ["Motion", "Pianist"]
 categories: ["paper-notes"]
 paper_title: "FürElise: Capturing and Physically Synthesizing Hand Motions of Piano Performance"
 authors: ["Ruocheng Wang", "Pei Xu", "Haochen Shi", "Elizabeth Schumann", "C. Karen Liu"]

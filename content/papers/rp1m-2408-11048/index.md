@@ -5,6 +5,7 @@ description: "用 OT 自动指法训练单曲 RL specialist，再把 100 万级�
 date: "2026-08-19"
 math: true
 tags: ["robot-learning", "dexterous-hand", "imitation-learning", "reinforcement-learning", "piano-playing", "dataset"]
+topics: ["Dataset", "Pianist", "Robotic"]
 categories: ["paper-notes"]
 paper_title: "RP1M: A Large-Scale Motion Dataset for Piano Playing with Bi-Manual Dexterous Robot Hands"
 authors: ["Yi Zhao", "Le Chen", "Jan Schneider", "Quankai Gao", "Juho Kannala", "Bernhard Schölkopf", "Joni Pajarinen", "Dieter Büchler"]

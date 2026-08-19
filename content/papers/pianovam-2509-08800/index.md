@@ -5,6 +5,7 @@ description: "用真实练琴场景采集视频、音频、MIDI、手部 landmar
 date: "2026-08-19"
 math: true
 tags: ["music-information-retrieval", "dataset", "audio-visual", "piano-transcription", "fingering", "multimodal"]
+topics: ["Dataset", "Pianist"]
 categories: ["paper-notes"]
 paper_title: "PianoVAM: A Multimodal Piano Performance Dataset"
 authors: ["Yonghyun Kim", "Junhyung Park", "Joonhyung Bae", "Kirak Kim", "Taegyun Kwon", "Alexander Lerch", "Juhan Nam"]

@@ -16,7 +16,7 @@ doi: "10.48550/arXiv.2608.02365"
 paper_url: "https://arxiv.org/abs/2608.02365"
 status: "triaged"
 reading_level: "brief"
-topics: ["robotics", "embodied-ai", "world-action-model", "robot-learning"]
+topics: ["WAM", "Robotic"]
 tags: ["faster-wam", "dot", "dock-of-transformer", "low-latency-wam", "kv-fusion", "rope-alignment"]
 categories: ["paper-briefs"]
 ---

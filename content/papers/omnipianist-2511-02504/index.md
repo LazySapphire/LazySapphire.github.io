@@ -5,6 +5,7 @@ description: "用 OT 自动指法替代人工 fingering，再用 RP1M++ 和 Flow
 date: "2026-08-18"
 math: true
 tags: ["robot-learning", "dexterous-hand", "reinforcement-learning", "imitation-learning", "flow-matching", "piano-playing"]
+topics: ["Pianist", "Robotic"]
 categories: ["paper-notes"]
 paper_title: "Dexterous Robotic Piano Playing at Scale"
 authors: ["Le Chen", "Yi Zhao", "Jan Schneider", "Quankai Gao", "Simon Guist", "Cheng Qian", "Juho Kannala", "Bernhard Schölkopf", "Joni Pajarinen", "Dieter Büchler"]

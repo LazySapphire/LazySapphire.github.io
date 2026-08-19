@@ -227,13 +227,13 @@
 
     const rows = Array.from(library.querySelectorAll("[data-paper-item]"));
     const filterButtons = Array.from(library.querySelectorAll("[data-paper-filter]"));
-    const tagButtons = Array.from(library.querySelectorAll("[data-paper-tag]"));
+    const topicButtons = Array.from(library.querySelectorAll("[data-paper-topic]"));
     const searchInput = library.querySelector("[data-paper-search]");
     const emptyState = library.querySelector("[data-paper-empty]");
     const detailBody = library.querySelector("[data-paper-detail-body]");
 
     let activeFilter = "all";
-    let activeTag = "all";
+    let activeTopic = "all";
 
     function parseDetail(row) {
       try {
@@ -253,6 +253,7 @@
         link.hidden = false;
       } else {
         link.hidden = true;
+        link.removeAttribute("href");
       }
     }
 
@@ -261,6 +262,19 @@
       if (node) {
         node.textContent = value || fallback;
       }
+    }
+
+    function setTagChips(selector, values) {
+      const tagBox = detailBody && detailBody.querySelector(selector);
+      if (!tagBox) {
+        return;
+      }
+      tagBox.innerHTML = "";
+      (values || []).forEach((tag) => {
+        const chip = document.createElement("span");
+        chip.textContent = tag;
+        tagBox.appendChild(chip);
+      });
     }
 
     function clearDetail() {
@@ -286,10 +300,8 @@
       setText("[data-detail-doi]", "", "");
       setText("[data-detail-description]", "", "");
 
-      const tagBox = detailBody.querySelector("[data-detail-tags]");
-      if (tagBox) {
-        tagBox.innerHTML = "";
-      }
+      setTagChips("[data-detail-topics]", []);
+      setTagChips("[data-detail-tags]", []);
 
       const openLink = detailBody.querySelector("[data-detail-open]");
       if (openLink) {
@@ -335,15 +347,8 @@
       setText("[data-detail-doi]", detail.doi);
       setText("[data-detail-description]", detail.description);
 
-      const tagBox = detailBody.querySelector("[data-detail-tags]");
-      if (tagBox) {
-        tagBox.innerHTML = "";
-        [...(detail.tags || []), ...(detail.topics || [])].forEach((tag) => {
-          const chip = document.createElement("span");
-          chip.textContent = tag;
-          tagBox.appendChild(chip);
-        });
-      }
+      setTagChips("[data-detail-topics]", detail.topics);
+      setTagChips("[data-detail-tags]", detail.tags);
 
       const openLink = detailBody.querySelector("[data-detail-open]");
       if (openLink) {
@@ -368,11 +373,11 @@
       return row.dataset.paperGroup === activeFilter;
     }
 
-    function matchesTag(row) {
-      if (activeTag === "all") {
+    function matchesTopic(row) {
+      if (activeTopic === "all") {
         return true;
       }
-      return (row.dataset.paperTags || "").split("|").includes(activeTag);
+      return (row.dataset.paperTopics || "").split("|").includes(activeTopic);
     }
 
     function matchesSearch(row) {
@@ -387,7 +392,7 @@
       let visibleCount = 0;
 
       rows.forEach((row) => {
-        const visible = matchesFilter(row) && matchesTag(row) && matchesSearch(row);
+        const visible = matchesFilter(row) && matchesTopic(row) && matchesSearch(row);
         row.hidden = !visible;
         if (visible) {
           visibleCount += 1;
@@ -410,16 +415,29 @@
       });
     });
 
-    tagButtons.forEach((button) => {
+    topicButtons.forEach((button) => {
       button.addEventListener("click", () => {
-        activeTag = button.dataset.paperTag || "all";
-        tagButtons.forEach((candidate) => candidate.classList.toggle("is-active", candidate === button));
+        activeTopic = button.dataset.paperTopic || "all";
+        topicButtons.forEach((candidate) => candidate.classList.toggle("is-active", candidate === button));
         applyFilters();
       });
     });
 
+    function openRow(row) {
+      const detail = parseDetail(row);
+      if (detail.url) {
+        window.location.assign(detail.url);
+      }
+    }
+
     rows.forEach((row) => {
       row.addEventListener("click", () => selectRow(row));
+      row.addEventListener("dblclick", (event) => {
+        if (event.target.closest("a, button, input, select, textarea")) {
+          return;
+        }
+        openRow(row);
+      });
       row.addEventListener("keydown", (event) => {
         if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();

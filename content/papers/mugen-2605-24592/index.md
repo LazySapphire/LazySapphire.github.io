@@ -5,6 +5,7 @@ description: "将人形动作压缩到动力学可执行的离散 VQ 技能空�
 date: "2026-06-04"
 math: true
 tags: ["humanoid-control", "vq-vae", "model-based-rl", "imitation-learning", "robotics"]
+topics: ["Humanoid", "Robotic"]
 categories: ["paper-notes"]
 paper_title: "MuGen: Multi-Skill Generative Locomotion Controller for Humanoid Robots"
 authors: ["Yusen Feng", "Xiang Wang", "Heyuan Yao", "Zixi Kang", "Xinyu Huo", "Boyang Yu", "Pengyun Qiu", "Ruijie Zhao", "Baoquan Chen", "Libin Liu"]

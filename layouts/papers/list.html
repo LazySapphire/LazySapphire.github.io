@@ -3,15 +3,15 @@
   {{ $papers = sort $papers "Date" "desc" }}
   {{ $deepPapers := where $papers "Section" "papers" }}
   {{ $briefPapers := where $papers "Section" "paper-briefs" }}
-  {{ $tagSet := slice }}
+  {{ $topicSet := slice }}
   {{ range $papers }}
-    {{ with .Params.tags }}
+    {{ with .Params.topics }}
       {{ range . }}
-        {{ $tagSet = $tagSet | append . }}
+        {{ $topicSet = $topicSet | append . }}
       {{ end }}
     {{ end }}
   {{ end }}
-  {{ $tags := sort (uniq $tagSet) }}
+  {{ $topics := sort (uniq $topicSet) }}
 
   <section class="library-page paper-library" data-paper-library>
     <aside class="library-left" aria-label="论文目录">
@@ -42,15 +42,15 @@
         </button>
       </div>
 
-      <div class="library-pane library-tags" aria-label="论文标签">
+      <div class="library-pane library-topics" aria-label="论文主题">
         <div class="library-pane-head">
-          <span>标签</span>
-          <span class="library-count">{{ len $tags }}</span>
+          <span>主题</span>
+          <span class="library-count">{{ len $topics }}</span>
         </div>
         <div class="tag-cloud">
-          <button class="tag-chip is-active" type="button" data-paper-tag="all">全部</button>
-          {{ range $tags }}
-            <button class="tag-chip" type="button" data-paper-tag="{{ . }}">{{ . }}</button>
+          <button class="tag-chip is-active" type="button" data-paper-topic="all">全部</button>
+          {{ range $topics }}
+            <button class="tag-chip" type="button" data-paper-topic="{{ . }}">{{ . }}</button>
           {{ end }}
         </div>
       </div>
@@ -109,7 +109,7 @@
                 {{ end }}
               {{ end }}
               {{ $detail := dict "title" $listTitle "paperTitle" $paperTitle "authors" $authors "year" $year "venue" $venue "status" $status "kind" $kind "description" ($page.Description | default $page.Summary | plainify) "url" $page.RelPermalink "paperUrl" ($page.Params.paper_url | default "") "projectUrl" ($page.Params.project_url | default "") "codeUrl" ($page.Params.code_url | default "") "doi" ($page.Params.doi | default "") "arxiv" ($page.Params.arxiv | default "") "tags" $tagsForPage "topics" $topicsForPage "cover" $coverURL }}
-              <tr class="paper-row{{ if eq $index 0 }} is-selected{{ end }}" role="button" tabindex="0" data-paper-item data-paper-group="{{ $group }}" data-paper-status="{{ $status }}" data-paper-tags="{{ delimit $tagsForPage "|" }}" data-paper-search-text="{{ printf "%s %s %s %s %s" $listTitle $paperTitle $authors (delimit $tagsForPage " ") (delimit $topicsForPage " ") }}" data-paper-detail="{{ $detail | jsonify }}">
+              <tr class="paper-row{{ if eq $index 0 }} is-selected{{ end }}" role="button" tabindex="0" data-paper-item data-paper-group="{{ $group }}" data-paper-status="{{ $status }}" data-paper-topics="{{ delimit $topicsForPage "|" }}" data-paper-tags="{{ delimit $tagsForPage "|" }}" data-paper-search-text="{{ printf "%s %s %s %s %s" $listTitle $paperTitle $authors (delimit $topicsForPage " ") (delimit $tagsForPage " ") }}" data-paper-detail="{{ $detail | jsonify }}">
                 <td>
                   <span class="paper-title">{{ $listTitle }}</span>
                   {{ with $page.Description }}<span class="paper-subtitle">{{ . }}</span>{{ end }}
@@ -146,7 +146,16 @@
           <div><dt>DOI</dt><dd data-detail-doi></dd></div>
         </dl>
         <p class="detail-description" data-detail-description></p>
-        <div class="detail-tags" data-detail-tags></div>
+        <div class="detail-taxonomy">
+          <div class="detail-taxonomy-group">
+            <span class="detail-taxonomy-label">主题</span>
+            <div class="detail-tags" data-detail-topics></div>
+          </div>
+          <div class="detail-taxonomy-group">
+            <span class="detail-taxonomy-label">细分标签</span>
+            <div class="detail-tags" data-detail-tags></div>
+          </div>
+        </div>
         <div class="detail-actions">
           <a class="button primary" data-detail-open>打开条目</a>
           <a class="button" data-detail-paper hidden>论文</a>

@@ -1174,6 +1174,23 @@ h2 {
   color: var(--muted);
 }
 
+.detail-taxonomy {
+  display: grid;
+  gap: 0.8rem;
+  margin: 1rem 0;
+}
+
+.detail-taxonomy-group {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.detail-taxonomy-label {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
 .detail-list {
   display: grid;
   gap: 0.5rem;
@@ -1201,7 +1218,6 @@ h2 {
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem;
-  margin: 1rem 0;
 }
 
 .detail-tags span {

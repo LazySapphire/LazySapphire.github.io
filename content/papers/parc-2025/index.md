@@ -5,6 +5,7 @@ description: "通过生成模型扩增跑酷动作，并用物理强化学习跟
 date: "2026-06-03"
 math: true
 tags: ["character-control", "motion-generation", "reinforcement-learning", "physics-based-animation"]
+topics: ["Motion", "Physics"]
 categories: ["paper-notes"]
 paper_title: "PARC: Physics-based Augmentation with Reinforcement Learning for Character Controllers"
 authors: ["Michael Xu", "Yi Shi", "KangKang Yin", "Xue Bin Peng"]

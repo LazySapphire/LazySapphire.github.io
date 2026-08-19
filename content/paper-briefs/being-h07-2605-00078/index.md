@@ -17,7 +17,7 @@ project_url: "https://research.beingbeyond.com/being-h07"
 code_url: "https://github.com/BeingBeyond/Being-H"
 status: "triaged"
 reading_level: "brief"
-topics: ["robotics", "embodied-ai", "world-action-model", "robot-learning"]
+topics: ["WAM", "Robotic"]
 tags: ["being-h", "latent-wam", "vla", "world-action-model", "egocentric-video"]
 categories: ["paper-briefs"]
 ---

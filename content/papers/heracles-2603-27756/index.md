@@ -5,6 +5,7 @@ description: "提出状态条件化的生成式轨迹中间层，在人形机器
 date: "2026-06-03"
 math: true
 tags: ["humanoid-control", "flow-matching", "robotics"]
+topics: ["Humanoid", "Robotic"]
 categories: ["paper-notes"]
 paper_title: "Heracles: Bridging Precise Tracking and Generative Synthesis for General Humanoid Control"
 authors: ["X-Humanoid Heracles Project Team", "Zelin Tao", "Zeran Su"]
