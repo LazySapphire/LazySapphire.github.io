@@ -54,7 +54,11 @@
         <div class="survey-section-head">
           <p class="eyebrow">Reverse Timeline</p>
           <h2 id="survey-timeline-title">项目脉络</h2>
-          <p>按时间逆序排列, 把每个项目放到 WAM 家族树的对应分支上。</p>
+          {{ with $.Params.timeline_intro }}
+            <p>{{ . }}</p>
+          {{ else }}
+            <p>按时间逆序排列, 把每个项目放到对应的分支上。</p>
+          {{ end }}
         </div>
         <ol class="timeline-list">
           {{ range $index, $item := sort . "date" "desc" }}

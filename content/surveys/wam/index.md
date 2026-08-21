@@ -13,6 +13,7 @@ tags: ["wam", "being-h", "fast-wam", "faster-wam", "dot", "uag", "latent-wam", "
 categories: ["surveys"]
 source_count: 6
 time_window: "2026-01-20 to 2026-08-05"
+timeline_intro: "按时间逆序排列, 把每个项目放到 WAM 家族树的对应分支上。"
 timeline_items:
   - title: "Faster-WAM / DoT"
     date: "2026-08-05"
@@ -85,6 +86,9 @@ WAM, World Action Model, 可以先理解为把“世界将如何变化”和“�
 - **未来信息放在哪里**: H0.7 把未来监督压进 latent, Fast-WAM 则证明推理阶段可以不显式想象未来。
 - **动作模块该有多重**: Faster-WAM/DoT 把视频 DiT 当作表示枢纽, 用很浅的动作头 dock 到多层视频表示上。
 - **新模态和训练管线如何接入**: H0.8 关注触觉/接触, UAG 关注动作预训练与视觉世界模型的并联式组织。
+- **动作条件如何进入模型**: action token、modulation、cross-attention、rendered geometry、flow 和 $SE(3)$ attention 都是值得比较的接口家族。
+
+与 WAM 并行的 AC-WM 分支另见 [AC-WM 主题综述](/surveys/ac-wm/), 它更强调 action-conditioned video world model 的显式未来观测建模。
 
 这页先作为轻量综述入口使用: 下面的树形时间线负责展示项目之间的先后关系和技术分支, 具体细节仍进入各条报告阅读。
 
