@@ -1,4 +1,5 @@
 .tmp/
+tmp/
 .cache/
 public/
 resources/_gen/
@@ -11,3 +12,4 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+downloads/

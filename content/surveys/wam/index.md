@@ -90,6 +90,8 @@ WAM, World Action Model, 可以先理解为把“世界将如何变化”和“�
 
 与 WAM 并行的 AC-WM 分支另见 [AC-WM 主题综述](/surveys/ac-wm/), 它更强调 action-conditioned video world model 的显式未来观测建模。
 
+如果关心多指灵巧手和触觉接触，先看 [机器人灵巧手与 WAM 调研报告](/resources/dexterous-hand-wam-luna-report/)。那份报告把严格 WAM、动作条件世界模型、预测视觉表征和触觉原生 WAM 放在同一张地图里，并单独标出哪些证据真的来自灵巧手。
+
 这页先作为轻量综述入口使用: 下面的树形时间线负责展示项目之间的先后关系和技术分支, 具体细节仍进入各条报告阅读。
 
 ## 阅读优先级

@@ -39,10 +39,13 @@ DreamX-Phi 1.0 是这条线里目前最适合归档的入口: 它不负责生成
 
 如果要继续沿着 AC-WM 走, 先看 DreamX-Phi 1.0 的结构化动作注入, 再拿 WAM 主题综述做对照, 最后看 PointWorld 这类 3D point-flow 路线, 观察 action-conditioned 世界模型是否一定要停留在 2D 视频空间。
 
+如果研究对象是多指灵巧手，还需要额外看 [机器人灵巧手与 WAM 调研报告](/resources/dexterous-hand-wam-luna-report/)。灵巧手会把 AC-WM 的 future observation 问题推进到 hand-object-contact state：只预测 RGB 或 video latent 往往不足以解释手指接触、滑移、力和跨手形态迁移。
+
 ## Related Reading
 
 - [DreamX-Phi 1.0](/papers/dreamx-phi-2608-13489/)
 - [WAM 主题综述](/surveys/wam/)
+- [机器人灵巧手与 WAM 调研报告](/resources/dexterous-hand-wam-luna-report/)
 - [PointWorld: Scaling 3D World Models for In-The-Wild Robotic Manipulation](https://arxiv.org/abs/2601.03782)
 - [V-JEPA 2](https://arxiv.org/abs/2506.09985)
 - [V-JEPA 2.1](https://arxiv.org/abs/2603.14482)
