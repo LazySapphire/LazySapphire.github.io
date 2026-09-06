@@ -68,6 +68,22 @@ scripts/check-production-artifacts.sh public
 
 - `docs/guide_资料整理与技能使用指南.md`
 
+## AI 小游戏
+
+- 栏目入口：`/ai-games/`，在首页和主导航中可见。
+- 制作记录：`content/ai-games/<slug>/index.md`，记录玩法、模型配置、版本与验证情况。
+- 游玩源码：`static/games/<slug>/`，直接发布到 `/games/<slug>/`。游戏应使用相对资源路径，运行时不依赖本地开发服务。
+- 截图：使用游戏实际运行画面，放在对应游戏目录中，同时用于列表和分享预览。
+- 新增游戏时沿用 `echo-lab` 的元数据字段和模板，不必为每个游戏修改全站布局。
+
+首款游戏《回声实验室》的逻辑测试：
+
+```bash
+node scripts/tests/echo-lab.cjs
+```
+
+`static/games/echo-lab/` 是发布后继续维护的版本；相邻的本地 `echo-loop` 原型不参与站点构建。公开制作记录与不公开的仓库维护日志分别保存在 `content/ai-games/` 和 `.maintenance/logs/`。
+
 ## 论文 PDF 同步
 
 论文原文 PDF 不放在主站仓库里，而是放在独立仓库，并由 Git LFS 管理：

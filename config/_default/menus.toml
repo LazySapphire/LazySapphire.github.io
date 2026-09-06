@@ -50,6 +50,13 @@ weight = 20
 params.i18n = "nav.projects"
 
 [[main]]
+identifier = "ai-games"
+name = "AI Games"
+pageRef = "/ai-games"
+weight = 22
+params.i18n = "nav.ai_games"
+
+[[main]]
 identifier = "tools"
 name = "Tools"
 parent = "collections"

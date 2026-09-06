@@ -1,0 +1,27 @@
+{{ define "main" }}
+  <div class="games-page">
+    <header class="page-header">
+      <p class="eyebrow">PLAY / MAKE / EXPLORE</p>
+      <h1>{{ .Title }}</h1>
+      <p>{{ .Description }}</p>
+    </header>
+    {{ with .Content }}<div class="content prose games-intro">{{ . }}</div>{{ end }}
+    <section class="games-catalog" aria-label="可以玩的 AI 小游戏">
+      {{ range .RegularPages.ByWeight }}
+        <article class="game-card">
+          <a class="game-card-image" href="{{ .Params.play_url | relURL }}" aria-label="开始玩{{ .Title }}">
+            <img src="{{ .Params.cover | relURL }}" alt="{{ .Title }}：分身压住开关，为现在的你打开闸门" width="1120" height="560">
+          </a>
+          <div class="game-card-copy">
+            <p class="eyebrow">{{ .Params.game_genre }} · {{ .Params.game_rooms }} 个关卡</p>
+            <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+            <p>{{ .Description }}</p>
+            <div class="game-badges"><span>浏览器即玩</span><span>键盘 / 触屏</span><span>v{{ .Params.game_version }}</span></div>
+            <div class="hero-actions"><a class="button primary" href="{{ .Params.play_url | relURL }}">开始游戏 →</a><a class="button" href="{{ .RelPermalink }}">制作记录</a></div>
+            <p class="game-card-credit">{{ .Params.game_model }} · {{ .Params.game_reasoning }} · {{ .Date.Format "2006-01-02" }}</p>
+          </div>
+        </article>
+      {{ end }}
+    </section>
+  </div>
+{{ end }}

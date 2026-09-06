@@ -17,6 +17,7 @@
       "nav.surveys": "Surveys",
       "nav.notes": "Notes",
       "nav.projects": "Projects",
+      "nav.ai_games": "AI Games",
       "nav.projects_submenu": "Projects submenu",
       "nav.offline_rl": "Offline RL",
       "nav.robotics": "Robotics",
@@ -48,6 +49,8 @@
       "section.notes.description": "Short essays, loose ideas, and non-project notes.",
       "section.projects.title": "Projects",
       "section.projects.description": "Projects, technical reports, and research work.",
+      "section.ai-games.title": "AI Games",
+      "section.ai-games.description": "Small playable experiments made with AI, with development notes and source code.",
       "section.tools.title": "Tools",
       "section.tools.description": "Tools and utilities.",
       "footer.built": "Built with Hugo"
@@ -66,6 +69,7 @@
       "nav.surveys": "主题综述",
       "nav.notes": "随笔",
       "nav.projects": "项目",
+      "nav.ai_games": "AI 小游戏",
       "nav.projects_submenu": "项目子菜单",
       "nav.offline_rl": "离线强化学习",
       "nav.robotics": "机器人",
@@ -97,6 +101,8 @@
       "section.notes.description": "短随笔、松散想法和非项目化记录。",
       "section.projects.title": "项目",
       "section.projects.description": "项目、技术报告与研究工作。",
+      "section.ai-games.title": "AI 小游戏",
+      "section.ai-games.description": "和 AI 一起做的小游戏，打开即玩，附制作记录与源码。",
       "section.tools.title": "工具",
       "section.tools.description": "工具与实用程序。",
       "footer.built": "由 Hugo 构建"
@@ -210,6 +216,22 @@
 
   applyTheme(preferredTheme());
   applyLanguage(preferredLanguage());
+
+  document.querySelectorAll("[data-game-share]").forEach((button) => {
+    button.addEventListener("click", async () => {
+      const status = document.getElementById("game-share-status");
+      status.textContent = "正在复制游玩链接…";
+      button.disabled = true;
+      try {
+        await navigator.clipboard.writeText(button.dataset.gameShare);
+        status.textContent = "游玩链接已复制，可以发给朋友了。";
+      } catch (error) {
+        status.textContent = "可以长按或右键「开始游戏」按钮，复制链接地址。";
+      } finally {
+        button.disabled = false;
+      }
+    });
+  });
 
   if (themeQuery.addEventListener) {
     themeQuery.addEventListener("change", () => {

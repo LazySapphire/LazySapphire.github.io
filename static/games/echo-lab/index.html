@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101918">
+  <meta name="description" content="一款关于时间与合作的小游戏。留下过去的自己，一起走出回声实验室。">
+  <title>回声实验室 · ECHO</title>
+  <link rel="canonical" href="https://lazysapphire.github.io/games/echo-lab/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="回声实验室 · ECHO | AI 小游戏">
+  <meta property="og:description" content="留下过去的自己，一起打开通往出口的门。五个房间、三个分身，打开即玩。">
+  <meta property="og:url" content="https://lazysapphire.github.io/games/echo-lab/">
+  <meta property="og:image" content="https://lazysapphire.github.io/games/echo-lab/cover.png">
+  <meta property="og:image:alt" content="回声实验室时间分身协作的实机画面">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://lazysapphire.github.io/games/echo-lab/cover.png">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23101918'/%3E%3Ccircle cx='25' cy='32' r='17' fill='none' stroke='%23bce5cd' stroke-width='5'/%3E%3Ccircle cx='40' cy='32' r='17' fill='none' stroke='%23efc17b' stroke-width='5'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="core.js"></script>
+  <script defer src="game.js"></script>
+</head>
+<body>
+  <header class="masthead">
+    <a class="brand" href="/ai-games/echo-lab/" aria-label="回声实验室制作记录"><span class="brand-mark" aria-hidden="true"></span><strong>ECHO<span>回声实验室</span></strong></a>
+    <span class="masthead-note">一个人，也能并肩前行。</span>
+    <div class="header-actions"><button id="sound" aria-pressed="false">声音：关</button><button id="help">玩法说明 <span class="key">?</span></button></div>
+  </header>
+  <main>
+    <section class="chapter-header" aria-labelledby="chapter-title">
+      <div><p class="eyebrow">TIME COOPERATION EXPERIMENT / 时间协作实验</p><h1 id="chapter-title">第一次回声</h1><p id="chapter-subtitle">有些门，需要过去的你来打开。</p></div>
+      <nav id="levels" aria-label="选择实验室"></nav>
+    </section>
+    <div class="workspace">
+      <section class="play-section" aria-label="游戏区域">
+        <div class="room-toolbar"><span><i class="status-light" aria-hidden="true"></i><span id="room-label">实验室 01</span></span><span id="run-state">等待行动</span><button id="pause" aria-label="暂停游戏">暂停 <span class="key">P</span></button></div>
+        <div class="stage" id="stage">
+          <canvas id="game" width="1120" height="560" tabindex="0" aria-label="时间分身解谜。方向键移动，空格跳跃，E 创建分身。详细操作见玩法说明。"></canvas>
+          <div class="stage-caption" id="stage-caption"><span class="key">A</span><span class="key">D</span> 或方向键，开始探索</div>
+          <div class="rewind-flash" id="rewind-flash" aria-hidden="true"></div>
+        </div>
+        <div class="transport">
+          <div class="transport-buttons"><button id="rewind" class="primary"><span aria-hidden="true">↶</span> 留下分身 <span class="key">E</span></button><button id="retry" title="回到起点，保留所有分身">重试 <span class="key">R</span></button><button id="undo" title="删除最后一个分身并回到起点">撤回分身 <span class="key">Z</span></button></div>
+          <span class="recording-clock"><i aria-hidden="true"></i><span id="clock">00.0</span><span class="clock-limit">/ 24 s</span></span>
+        </div>
+        <div class="touch-controls" aria-label="触屏操作"><div><button data-hold="left" aria-label="向左移动">←</button><button data-hold="right" aria-label="向右移动">→</button></div><button data-hold="jump">跳跃 ↑</button></div>
+        <section class="timeline" aria-labelledby="timeline-title"><div class="section-label"><h2 id="timeline-title">时间轨迹</h2><span id="echo-count">0 / 3 个分身</span></div><div id="tracks"></div><div class="timeline-ruler"><span>0 s</span><span>6 s</span><span>12 s</span><span>18 s</span><span>24 s</span></div></section>
+      </section>
+      <aside>
+        <section class="mission"><p class="eyebrow">YOUR OBJECTIVE</p><h2>走向出口，<br>带上过去的自己。</h2><p id="objective"></p><div id="circuit-list" class="circuit-list" aria-label="机关状态"></div></section>
+        <section class="field-note"><div class="section-label"><h2>实验手记</h2><span aria-hidden="true">✳</span></div><p id="field-note"></p><button id="hint" aria-expanded="false">需要一点提示？ <span aria-hidden="true">＋</span></button><p id="hint-text" hidden></p></section>
+        <section class="legend"><h2>认识你的世界</h2><div><span class="legend-person you" aria-hidden="true"></span><span>现在的你</span><small>可以操控</small></div><div><span class="legend-person ghost" aria-hidden="true"></span><span>过去的你</span><small>重复行动</small></div><div><span class="legend-switch" aria-hidden="true"></span><span>压力开关</span><small>站上去激活</small></div><div><span class="legend-exit" aria-hidden="true"></span><span>出口</span><small>抵达即通关</small></div></section>
+        <button id="reset" class="reset-button">清空本关分身，重新开始</button>
+      </aside>
+    </div>
+    <footer><span><a href="/ai-games/">← AI 小游戏</a> · <a href="/ai-games/echo-lab/">制作记录</a></span><span>05 ROOMS · 03 ECHOES · 01 YOU</span></footer>
+  </main>
+  <p id="announcement" class="sr-only" role="status" aria-live="polite"></p>
+  <div id="toast" class="toast" aria-hidden="true"></div>
+  <dialog id="dialog" aria-labelledby="dialog-title"><div class="dialog-content"><p class="eyebrow" id="dialog-label"></p><h2 id="dialog-title"></h2><div id="dialog-body"></div><div id="dialog-actions"></div></div></dialog>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{{ define "main" }}
+  <article class="article game-article">
+    <header class="page-header">
+      <a class="game-back" href="{{ "ai-games/" | relURL }}">← AI 小游戏</a>
+      <p class="eyebrow">{{ .Params.game_genre }} / 制作记录</p>
+      <h1>{{ .Title }}</h1>
+      <p>{{ .Description }}</p>
+      <div class="game-badges"><span>{{ .Date.Format "2006-01-02" }}</span><span>v{{ .Params.game_version }}</span><span>{{ .Params.game_model }} · {{ .Params.game_reasoning }}</span></div>
+      <div class="hero-actions">
+        <a class="button primary" href="{{ .Params.play_url | relURL }}">开始游戏 →</a>
+        <button class="button" type="button" data-game-share="{{ .Params.play_url | absURL }}">复制游玩链接</button>
+        <a class="button ghost" href="{{ .Params.code_url }}" target="_blank" rel="noopener noreferrer">查看源码 ↗</a>
+      </div>
+      <p id="game-share-status" class="game-share-status" role="status" aria-live="polite"></p>
+    </header>
+    <figure class="page-cover">
+      <a href="{{ .Params.play_url | relURL }}" aria-label="开始玩{{ .Title }}"><img src="{{ .Params.cover | relURL }}" width="1120" height="560" alt="回声实验室实机画面：过去的分身停在开关上，现在的角色向出口前进。"></a>
+      <figcaption>游戏实机截图 · 点击画面即可开始</figcaption>
+    </figure>
+    <div class="content prose">{{ .Content }}</div>
+  </article>
+{{ end }}

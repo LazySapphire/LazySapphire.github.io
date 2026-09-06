@@ -16,7 +16,14 @@
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
 <meta property="og:url" content="{{ .Permalink }}">
 <meta property="og:site_name" content="{{ .Site.Title }}">
+{{ if and (eq .Section "ai-games") .Params.cover }}
+<meta property="og:image" content="{{ .Params.cover | absURL }}">
+<meta property="og:image:alt" content="{{ .Title }}游戏实机画面">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{{ .Params.cover | absURL }}">
+{{ else }}
 <meta name="twitter:card" content="summary">
+{{ end }}
 
 {{ with .OutputFormats.Get "RSS" -}}
 <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink }}" title="{{ $.Site.Title }}">
