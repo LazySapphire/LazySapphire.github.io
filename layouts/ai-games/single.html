@@ -14,7 +14,7 @@
       <p id="game-share-status" class="game-share-status" role="status" aria-live="polite"></p>
     </header>
     <figure class="page-cover">
-      <a href="{{ .Params.play_url | relURL }}" aria-label="开始玩{{ .Title }}"><img src="{{ .Params.cover | relURL }}" width="1120" height="560" alt="回声实验室实机画面：过去的分身停在开关上，现在的角色向出口前进。"></a>
+      <a href="{{ .Params.play_url | relURL }}" aria-label="开始玩{{ .Title }}"><img src="{{ .Params.cover | relURL }}" width="1120" height="560" alt="{{ .Params.cover_alt | default (printf "%s 游戏实机画面" .Title) }}"></a>
       <figcaption>游戏实机截图 · 点击画面即可开始</figcaption>
     </figure>
     <div class="content prose">{{ .Content }}</div>

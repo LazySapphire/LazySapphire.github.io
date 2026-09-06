@@ -76,13 +76,16 @@ scripts/check-production-artifacts.sh public
 - 截图：使用游戏实际运行画面，放在对应游戏目录中，同时用于列表和分享预览。
 - 新增游戏时沿用 `echo-lab` 的元数据字段和模板，不必为每个游戏修改全站布局。
 
-首款游戏《回声实验室》的逻辑测试：
+首款游戏《回声实验室》v2 有 25 个自由选择的房间、5 个章节；`levels.js` 是关卡数据，`core.js` 负责确定性的共享物理与输入回放，`game.js` 负责显示和操作。每个关卡必须有正常输入的通关验证，修改机制时补上相应回归。测试：
 
 ```bash
 node scripts/tests/echo-lab.cjs
+node scripts/tests/echo-lab-physics.cjs
 ```
 
 `static/games/echo-lab/` 是发布后继续维护的版本；相邻的本地 `echo-loop` 原型不参与站点构建。公开制作记录与不公开的仓库维护日志分别保存在 `content/ai-games/` 和 `.maintenance/logs/`。
+
+直达某关使用 `/games/echo-lab/#room=25`；旧的 `echo-lab-progress-v1` 本地存档键继续保留，前五关编号不变。发布更新时同步修改记录中的版本、关卡数和游戏 HTML 的资源版本参数。
 
 ## 论文 PDF 同步
 
