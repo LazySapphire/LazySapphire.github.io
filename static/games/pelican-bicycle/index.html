@@ -1,98 +1,40 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f6f3e9">
-  <title>顺风，慢行 · 鹈鹕的海边骑行</title>
-  <style>
-    :root { color-scheme: light; --paper:#f6f3e9; --ink:#244c48; --muted:#607570; --line:#d3d9cc; --orange:#d96540; }
-    * { box-sizing:border-box; }
-    body { margin:0; background:var(--paper); color:var(--ink); font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif; }
-    main { width:min(1160px,calc(100% - 80px)); margin:38px auto 24px; }
-    .masthead { display:flex; justify-content:space-between; align-items:center; gap:20px; padding-bottom:18px; border-bottom:1px solid var(--line); }
-    .brand { display:flex; align-items:center; gap:11px; font-size:12px; font-weight:700; letter-spacing:2.4px; }
-    .brand svg { width:34px; height:34px; }
-    .edition { color:var(--muted); font:11px/1.5 ui-monospace,monospace; letter-spacing:1.5px; }
-    .intro { display:flex; justify-content:space-between; align-items:end; gap:24px; padding:28px 0 25px; }
-    .eyebrow { margin:0 0 9px; font-size:11px; letter-spacing:3px; font-weight:600; color:var(--muted); }
-    h1 { margin:0; font-family:"Noto Serif CJK SC","Songti SC",SimSun,serif; font-size:clamp(30px,4vw,46px); font-weight:600; letter-spacing:3px; line-height:1.4; }
-    h1 span { color:var(--orange); }
-    .intro-note { margin:0 0 5px; font-size:13px; line-height:1.9; color:var(--muted); text-align:right; letter-spacing:1px; }
-    .postcard { position:relative; overflow:hidden; border:1px solid #bfccbc; border-radius:16px; background:#eaf0dd; }
-    .scene { display:block; width:100%; height:auto; aspect-ratio:1200 / 640; }
-    .scene-label { position:absolute; top:24px; left:26px; display:flex; align-items:center; gap:9px; color:#466359; font:10px/1.5 ui-monospace,monospace; letter-spacing:2px; }
-    .scene-label::before { content:""; width:6px; height:6px; border-radius:50%; background:#527765; }
-    .scene-caption { position:absolute; bottom:22px; right:27px; font:italic 17px Georgia,serif; color:#536b58; }
-    .controls { display:flex; align-items:center; gap:16px; padding:20px 0; border-bottom:1px solid var(--line); }
-    button { display:inline-flex; justify-content:center; align-items:center; gap:9px; min-height:44px; border:1px solid var(--line); padding:0 18px; border-radius:999px; background:transparent; color:var(--ink); font-size:13px; font-weight:500; line-height:1.4; font-family:inherit; cursor:pointer; transition:background .18s,transform .18s; touch-action:manipulation; }
-    button:hover { background:#e9ecdf; }
-    button:active { transform:translateY(1px); }
-    button:focus-visible,input:focus-visible { outline:3px solid var(--orange); outline-offset:4px; }
-    button svg { width:16px; height:16px; flex-shrink:0; }
-    .primary { background:var(--ink); border-color:var(--ink); color:var(--paper); min-width:120px; }
-    .primary:hover { background:#39645d; }
-    .speed-control { display:flex; align-items:center; gap:14px; margin-left:10px; font-size:12px; }
-    .speed-control label { color:var(--muted); white-space:nowrap; }
-    input[type=range] { width:128px; height:44px; margin:0; accent-color:var(--ink); cursor:pointer; }
-    output { width:38px; font:12px ui-monospace,monospace; }
-    .bell { margin-left:auto; }
-    footer { display:flex; justify-content:space-between; gap:16px; padding-top:17px; color:var(--muted); font-size:11px; letter-spacing:1px; }
-    .footer-right { font:10px/1.7 ui-monospace,monospace; letter-spacing:1.8px; }
-    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; border:0; }
-    @media (max-width:640px) {
-      main { width:calc(100% - 32px); margin-top:22px; }
-      .brand { font-size:10px; letter-spacing:1.5px; gap:8px; }
-      .edition { font-size:9px; letter-spacing:0; }
-      .intro { padding:24px 0 19px; display:block; }
-      .intro-note { text-align:left; margin:10px 0 0; font-size:12px; }
-      .intro-note br { display:none; }
-      .scene { aspect-ratio:4 / 3; }
-      .scene-label { top:15px; left:15px; font-size:8px; letter-spacing:1px; }
-      .scene-caption { bottom:15px; right:16px; font-size:13px; }
-      .controls { gap:10px; flex-wrap:wrap; padding:16px 0; }
-      button { padding:0 15px; }
-      .primary { min-width:112px; }
-      .speed-control { order:3; justify-content:center; flex:1 0 100%; margin:0; }
-      input[type=range] { flex:1; max-width:220px; }
-      footer { font-size:10px; }
-      .footer-right { font-size:9px; letter-spacing:.6px; }
-    }
-    @media (prefers-reduced-motion:reduce) { button { transition:none; } }
-  </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f6f3e9">
+<meta name="description" content="拼搭一位旅伴，自由换装，在自行车、跑步与划艇之间切换，感受海岸的昼夜、天气和四季。">
+<title>顺风，慢行 · 海岸运动小剧场</title>
+<link rel="stylesheet" href="studio.css?v=2.0.0">
+<script defer src="motion.js?v=2.0.0"></script><script defer src="studio.js?v=2.0.0"></script>
 </head>
 <body>
 <main>
-  <header class="masthead">
-    <div class="brand">
-      <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="18" cy="18" r="16"/><path d="M7 23c4-5 8-5 12 0m-7 3c4-5 8-5 12 0M16 19V12c0-5 7-6 7-1l8 2-9 2v4"/><circle cx="21" cy="10" r=".8" fill="currentColor"/></svg>
-      PELICAN CYCLING CLUB
-    </div>
-    <div class="edition">COASTAL EDITION / 001</div>
-  </header>
-  <section class="intro" aria-labelledby="heading">
-    <div><p class="eyebrow">一只鹈鹕的出走日记</p><h1 id="heading">顺风，<span>慢行。</span></h1></div>
-    <p class="intro-note">今天的目的地，是没有目的地。<br>跟着海风，再踩一圈。</p>
-  </section>
-
-  <div class="postcard">
-    <div class="scene-label" aria-hidden="true">THE SCENIC ROUTE · 海岸线</div>
+<header class="masthead"><div class="brand"><svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="18" cy="18" r="16"/><path d="M7 23c4-5 8-5 12 0m-7 3c4-5 8-5 12 0M16 19V12c0-5 7-6 7-1l8 2-9 2v4"/><circle cx="21" cy="10" r=".8" fill="currentColor"/></svg>COASTAL PLAY CLUB</div><span class="edition">MAKE YOUR OWN LITTLE DAY / 002</span></header>
+<section class="intro"><div><p class="eyebrow">把想象，带去海边</p><h1>顺风，<span>慢行。</span></h1></div><p class="intro-note">拼一位旅伴，选一种天气。<br>让日子按喜欢的速度走。</p></section>
+<div class="studio-layout">
+<section class="stage" aria-label="运动场景">
+<div class="stage-top"><div class="sport-switch" role="group" aria-label="运动项目">
+<button type="button" data-activity="cycling" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="16" r="4"/><circle cx="19" cy="16" r="4"/><path d="M6 16 10 8l5 8H6m4-8h7l2 8M8 5h4m5 3-1-4h3"/></svg>自行车</button>
+<button type="button" data-activity="running" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="15" cy="4" r="2"/><path d="m8 11 3-4 4 2 4 3 3-1M14 9l-3 6 6 3 1 4M11 15l-5 5H2"/></svg>跑步</button>
+<button type="button" data-activity="rowing" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 15h20l-5 5H7ZM7 3l12 13m-4-4 5 5m-7-7-2 5"/><circle cx="11" cy="7" r="2"/></svg>划艇</button>
+</div><span class="stage-number">SCENE 01</span></div>
+<div class="postcard"><div class="scene-label">THE SCENIC ROUTE · 海岸线</div><div class="scene-conditions" id="scene-conditions">夏日 · 晴天</div>
     <svg class="scene" id="scene" viewBox="0 0 1200 640" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="scene-title scene-desc" xmlns="http://www.w3.org/2000/svg">
-      <title id="scene-title">戴着绿色围巾的鹈鹕骑自行车</title>
-      <desc id="scene-desc">一只长着金黄色大嘴、奶白色羽毛的鹈鹕，骑着橘红色自行车沿海岸前行。双脚交替踩踏，车轮转动，围巾飘扬，远处有灯塔、帆船和海鸥。</desc>
+      <title id="scene-title">海岸运动小剧场</title>
+      <desc id="scene-desc">自由拼搭角色、换装、切换运动，感受海岸的昼夜与四季。</desc>
       <defs>
-        <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#e8eedc"/><stop offset="1" stop-color="#f8edcc"/></linearGradient>
-        <linearGradient id="water" x2="0" y2="1"><stop stop-color="#b5d2c2"/><stop offset="1" stop-color="#d4dfc4"/></linearGradient>
+        <linearGradient id="sky" x2="0" y2="1"><stop id="sky-top" stop-color="#e8eedc"/><stop id="sky-bottom" offset="1" stop-color="#f8edcc"/></linearGradient>
+        <linearGradient id="water" x2="0" y2="1"><stop id="water-top" stop-color="#b5d2c2"/><stop id="water-bottom" offset="1" stop-color="#d4dfc4"/></linearGradient>
         <pattern id="grain" width="73" height="61" patternUnits="userSpaceOnUse"><circle cx="8" cy="13" r=".7" fill="#244c48" opacity=".13"/><circle cx="47" cy="37" r=".65" fill="#244c48" opacity=".1"/><circle cx="25" cy="54" r=".6" fill="#fff" opacity=".5"/></pattern>
-        <g id="cloud" fill="#fffaf0"><path d="M0 25c0-9 9-15 19-13C23-6 49-4 56 10c13-6 28 2 29 15Z"/></g>
+        <g id="cloud" fill="var(--cloud-color,#fffaf0)"><path d="M0 25c0-9 9-15 19-13C23-6 49-4 56 10c13-6 28 2 29 15Z"/></g>
         <g id="gull" fill="none" stroke="#637d70" stroke-width="2.5" stroke-linecap="round"><path d="M-16 2Q-6-7 0 1Q7-7 16 0"/></g>
         <g id="spokes" stroke="#829c8a" stroke-width="1.7" opacity=".9">
           <path d="M-80 0H80M0-80V80M-56.57-56.57L56.57 56.57M-56.57 56.57L56.57-56.57M-30.61-73.91L30.61 73.91M-73.91-30.61L73.91 30.61M-73.91 30.61L73.91-30.61M-30.61 73.91L30.61-73.91"/>
           <path d="M58-49L65-41" stroke="#f8f1dd" stroke-width="6" stroke-linecap="round"/>
         </g>
         <g id="shore-piece">
-          <path d="M0 422Q120 388 265 412T600 414T900 421T1200 422V484H0Z" fill="#d2d9ae"/>
-          <path d="M0 451Q110 430 250 450T560 448T880 451T1200 451V489H0Z" fill="#bdc994"/>
+          <path d="M0 422Q120 388 265 412T600 414T900 421T1200 422V484H0Z" fill="var(--land-back,#d2d9ae)"/>
+          <path d="M0 451Q110 430 250 450T560 448T880 451T1200 451V489H0Z" fill="var(--land-front,#bdc994)"/>
           <g fill="none" stroke="#91a777" stroke-width="2" stroke-linecap="round"><path d="M140 451l-6-18m6 18 7-23m-7 23 17-12M885 448l-7-15m7 15 4-22m-4 22 13-10M1070 450l-3-17m3 17 10-14"/></g>
         </g>
         <g id="road-piece" stroke="#c7c8a3" stroke-linecap="round">
@@ -103,13 +45,12 @@
       </defs>
 
       <rect width="1200" height="640" fill="url(#sky)"/>
-      <circle cx="935" cy="137" r="62" fill="#ead18a" opacity=".3"/>
-      <circle cx="935" cy="137" r="47" fill="#e6bf68"/>
+      <g id="stars"></g><g id="sun"><circle r="62" fill="#ead18a" opacity=".3"/><circle r="47" fill="#e6bf68"/></g><g id="moon" opacity="0" transform="translate(935 137)"><path d="M15-32A35 35 0 1 0 26 26A33 33 0 0 1 15-32Z" fill="#f5e8bc"/></g>
       <g id="clouds" opacity=".8"><use href="#cloud" x="180" y="128"/><use href="#cloud" transform="translate(1010 198) scale(1.3)"/><use href="#cloud" transform="translate(510 69) scale(.7)"/><use href="#cloud" x="1380" y="128"/><use href="#cloud" transform="translate(2210 198) scale(1.3)"/><use href="#cloud" transform="translate(1710 69) scale(.7)"/></g>
-      <g id="gulls"><use href="#gull" x="805" y="147"/><use href="#gull" transform="translate(850 169) scale(.7)"/><use href="#gull" transform="translate(287 239) scale(.65)"/></g>
+      <g id="overcast"><use href="#cloud" transform="translate(95 185) scale(3.1)"/><use href="#cloud" transform="translate(420 125) scale(3.8)"/><use href="#cloud" transform="translate(870 215) scale(3.1)"/></g><g id="gulls"><use href="#gull" x="805" y="147"/><use href="#gull" transform="translate(850 169) scale(.7)"/><use href="#gull" transform="translate(287 239) scale(.65)"/></g>
       <path d="M0 354Q96 322 171 348Q236 299 323 346Q426 320 502 354Q571 331 661 355Z" fill="#9dbba5" opacity=".43"/>
       <path d="M877 354Q963 320 1038 346Q1111 309 1200 340V382H877Z" fill="#9dbba5" opacity=".43"/>
-      <rect y="356" width="1200" height="99" fill="url(#water)"/>
+      <rect id="sea" y="356" width="1200" height="284" fill="url(#water)"/>
       <path d="M0 357H1200" stroke="#8cafa1" stroke-width="1.5"/>
       <g id="ripples" fill="none" stroke="#f1f0d8" stroke-width="2.5" stroke-linecap="round" opacity=".8"><path d="M53 382h91m83 26h70m31-33h42m415 20h135m63-20h57m76 39h107M53 433h91m650 0h70M1253 382h91m83 26h70m31-33h42m415 20h135m63-20h57m76 39h107M1253 433h91m650 0h70"/></g>
       <g id="sailboat" transform="translate(904 335)" stroke="#6c8d7d" stroke-width="1.5" stroke-linejoin="round"><path d="M-26 7H28L17 16H-15Z" fill="#708f7d"/><path d="M1-53V6"/><path d="M-4-48V0H-29Z" fill="#fff8df"/><path d="M6-38V0H24Z" fill="#f2dda9"/></g>
@@ -118,14 +59,13 @@
         <path d="M-11 9H13L21 96H-19Z" fill="#f8efd8"/><path d="M-13 34H15L17 50H-15Z" fill="#d98463" stroke="none"/><path d="M-16 69H18L20 82H-17Z" fill="#d98463" stroke="none"/>
         <path d="M-16 9H18V-9H-16Z" fill="#f4e4ba"/><path d="M-19-9L1-22 21-9Z" fill="#6e8d79"/><path d="M-6-6V6m14-12V6M-22 13H24"/><path d="M-3 95V81Q1 75 6 81V95" fill="#7b9785"/>
       </g>
-      <g id="shore"><use href="#shore-piece"/><use href="#shore-piece" x="1200"/></g>
-      <path d="M0 480H1200V640H0Z" fill="#dad4af"/>
-      <path d="M0 480H1200" stroke="#aeb991" stroke-width="3"/>
-      <path d="M0 487H1200" stroke="#efe4bf" stroke-width="3"/>
+      <g id="season-trees"></g><g id="shore"><use href="#shore-piece"/><use href="#shore-piece" x="1200"/></g>
+      <path id="ground" d="M0 480H1200V640H0Z" fill="var(--ground-color,#dad4af)"/>
+      <path id="ground-edge" d="M0 480H1200" stroke="#aeb991" stroke-width="3"/>
+      <path id="ground-trim" d="M0 487H1200" stroke="#efe4bf" stroke-width="3"/>
       <g id="road"><use href="#road-piece"/><use href="#road-piece" x="1200"/></g>
-      <ellipse cx="610" cy="577" rx="230" ry="12" fill="#809776" opacity=".17"/>
+      <g id="rowing-ripples" fill="none" stroke="#f4ecd2" stroke-width="3" opacity=".55"><path d="M30 487q30-8 70 0m680-21q50-10 95 0M130 550h105m630 54h180M10 610h130m780-64h80"/></g><ellipse id="ground-shadow" cx="610" cy="577" rx="230" ry="12" fill="#809776" opacity=".17"/>
 
-      <!-- All moving joints use the same clock, so feet stay on their pedals. -->
       <g id="bicycle" stroke="#294e46" stroke-linecap="round" stroke-linejoin="round">
         <g id="wheels">
           <g transform="translate(470 485)"><circle r="88" fill="#eee7c9" fill-opacity=".22" stroke-width="10"/><circle r="80" fill="none" stroke="#f7edd3" stroke-width="3"/><g id="rear-spokes"><use href="#spokes"/></g><circle r="8" fill="#e7d9b4" stroke-width="3"/></g>
@@ -133,7 +73,7 @@
         </g>
         <path d="M381 464A92 92 0 0 1 554 447M675 450A94 94 0 0 1 849 462" fill="none" stroke="#799988" stroke-width="5"/>
         <path d="M414 390H502M425 390L463 473" fill="none" stroke-width="4"/>
-        <g id="far-leg"><path id="far-leg-line" d="M557 340Q612 395 558 469" fill="none" stroke="#ae843d" stroke-width="13"/><path id="far-foot" d="M544 462h34v10h-34Z" fill="#c6a04e" stroke-width="2.5"/><path id="far-pedal" d="M540 478H574" stroke-width="6"/></g>
+
         <path d="M470 485L551 362L594 480L470 485M551 362H701L594 480M701 362L717 415L760 485" fill="none" stroke-width="12"/>
         <path d="M470 485L551 362L594 480L470 485M551 362H701L594 480M701 362L717 415L760 485" fill="none" stroke="#d97550" stroke-width="7"/>
         <path d="M557 371H683" fill="none" stroke="#f4b088" stroke-width="2"/>
@@ -147,156 +87,43 @@
         <path d="M716 312Q713 302 721 301Q730 301 730 312Z" fill="#e3b85c" stroke-width="2"/><path d="M713 313H732" stroke-width="3"/>
       </g>
 
-      <g id="pelican" stroke="#294e46" stroke-linecap="round" stroke-linejoin="round">
-        <g id="body">
-          <!-- Tail, pear-shaped body, and an unmistakably long pelican neck. -->
-          <path d="M490 288L446 273L458 296L439 290Q450 315 486 325" fill="#f6f2dd" stroke-width="3.5"/>
-          <path d="M482 278Q513 245 567 252Q599 251 600 208L598 173Q596 142 619 132Q646 122 662 143Q676 163 662 184Q648 198 642 214L639 275Q637 309 605 331Q570 356 521 337Q482 326 477 301Q474 287 482 278Z" fill="#fbf6e4" stroke-width="3.5"/>
-          <path d="M619 186Q622 215 615 253Q605 281 591 288Q582 316 550 329Q587 337 607 318Q635 300 629 272L632 211Z" fill="#dfdfc8" stroke="none"/>
-          <path d="M498 306Q503 319 518 323M504 292Q509 307 522 311" fill="none" stroke="#cbd1ba" stroke-width="3"/>
-          <g id="scarf">
-            <path id="scarf-tail" d="M615 223C587 212 564 234 531 215L538 235C565 252 593 223 620 239Z" fill="#5c8e76" stroke-width="2.5"/>
-            <path id="scarf-fold" d="M612 229Q575 226 544 231" fill="none" stroke="#a4b991" stroke-width="2"/>
-            <path d="M603 216Q620 225 642 217L641 231Q622 239 602 230Z" fill="#56866c" stroke-width="2.5"/>
-            <path d="M621 229Q634 218 639 231Q642 239 630 242Z" fill="#73967a" stroke-width="2"/>
-          </g>
-          <!-- The broad lower pouch hangs below the long, slim upper bill. -->
-          <path d="M654 162L790 179Q785 190 758 200Q711 229 677 204Q664 194 654 176Z" fill="#edbf64" stroke-width="3"/>
-          <path d="M670 180Q694 211 727 204Q758 198 780 184" fill="none" stroke="#d79c4d" stroke-width="2"/>
-          <path d="M650 158Q715 159 794 176Q804 179 790 185L652 176Q646 170 650 158Z" fill="#f4d781" stroke-width="3"/>
-          <path d="M662 174L784 181" stroke="#b58a42" stroke-width="1.5"/>
-          <path d="M673 162L683 164" stroke="#8e773e" stroke-width="2"/>
-          <circle cx="642" cy="151" r="12" fill="#e8d9a6" stroke="none"/>
-          <g id="eye" transform="translate(642 151)"><circle r="5.5" fill="#294e46" stroke="none"/><circle cx="1.5" cy="-1.5" r="1.6" fill="#fff" stroke="none"/></g>
-          <path d="M631 134Q640 130 649 135" fill="none" stroke-width="2.5"/>
-          <path d="M614 133Q605 125 604 119M623 130Q617 117 620 113" fill="none" stroke-width="3"/>
+
+      <defs id="character-symbols"></defs>
+      <g id="boat-wake" fill="none" stroke="#f7edce" stroke-width="3"><ellipse cx="590" cy="568" rx="270" ry="17"/><path d="M308 559h-35m574 17h40"/></g>
+      <g id="boat-seat" class="outlined"><path d="M515 447v38m66-38v37" stroke="#876746" stroke-width="6"/><path d="M500 438h97v10h-97Z" fill="#b89561"/></g>
+      <g id="far-arm" class="outlined"><path class="limb-outline"/><path class="limb-fill"/><path class="sleeve"/><ellipse class="hand" rx="13" ry="9"/></g>
+      <g id="far-leg" class="outlined"><path class="limb-outline"/><path class="limb-fill"/><g class="foot"><use/></g><path class="pedal" stroke-width="6"/></g>
+      <g id="torso-rig" class="outlined">
+        <g id="backpack" transform="translate(-51 -53)"><rect x="-24" y="-17" width="46" height="65" rx="14" fill="#759480"/><path d="M-16 17H16V38H-16ZM-10-17v-9h22v9" fill="none"/><path d="M16-5L57-20M17 42L30 47" fill="none" stroke-width="6"/></g>
+        <use id="body-tail"/><use id="body-shape"/>
+        <g id="clothes-layer"><use id="clothes-shape"/><g id="clothes-details" clip-path="url(#clothes-clip)"></g></g>
+        <g id="head-rig" transform="translate(43 -77)">
+          <use id="head-shape"/>
+          <g id="hair-rig"><use id="hair-shape"/></g>
+          <g id="scarf"><path id="scarf-tail" fill="#5c8e76"/><path d="M-15-7Q3 3 24-6L25 9Q5 17-14 6Z" fill="#56866c"/><path d="M5 8q14-13 19 0q0 12-15 10Z" fill="#73967a"/></g>
+          <g id="glasses"><path d="M-14-3l-18-6M7 0h6" fill="none"/><circle cx="-3" r="10" fill="#9bc3b3" fill-opacity=".45"/><circle cx="23" cy="1" r="10" fill="#9bc3b3" fill-opacity=".45"/></g>
+          <g id="hat"><path d="M-27 0l6-28q23-12 45 0l5 28Z" fill="#dfc47d"/><path d="M-25-7h52" stroke="#658673" stroke-width="8"/><ellipse cy="3" rx="43" ry="9" fill="#ecd79c"/></g>
         </g>
-        <g id="near-leg"><path id="near-leg-line" d="M573 335Q641 395 614 471" fill="none" stroke="#294e46" stroke-width="16"/><path id="near-leg-color" d="M573 335Q641 395 614 471" fill="none" stroke="#d6ab57" stroke-width="10"/><path id="near-foot" d="M609 464h33v12h-33Z" fill="#e5b760" stroke-width="2.5"/><path id="near-toes" d="M620 467l9 8m0-9 8 8" fill="none" stroke="#b5843e" stroke-width="1.7"/><path id="near-pedal" d="M609 482H641" stroke-width="6"/></g>
-        <g id="wing"><path d="M532 266Q561 254 600 281L656 311Q684 317 704 309Q712 308 711 315Q710 326 682 330Q651 334 620 319Q594 317 578 307Q551 305 532 286Q522 277 532 266Z" fill="#f7f1db" stroke-width="3.5"/><path d="M546 277Q573 292 602 292M551 289Q573 302 594 304M662 317Q684 323 701 315" fill="none" stroke="#b9c7ae" stroke-width="2.5"/></g>
       </g>
+      <g id="near-leg" class="outlined"><path class="limb-outline"/><path class="limb-fill"/><g class="foot"><use/></g><path class="pedal" stroke-width="6"/></g>
+      <g id="near-arm" class="outlined"><path class="limb-outline"/><path class="limb-fill"/><path class="sleeve"/><ellipse class="hand" rx="14" ry="9"/></g>
+      <g id="boat" class="outlined"><path d="M347 484Q599 464 862 484L821 532Q612 584 393 535Z" fill="#d88457"/><path d="M349 484Q600 500 862 484M370 508Q610 537 843 507" fill="none" stroke="#f2d9a7" stroke-width="6"/><path d="M401 531Q610 566 812 531" fill="none" stroke="#a56345" stroke-width="3"/><text x="568" y="534" fill="#f7ebcd" stroke="none" font-size="15" letter-spacing="4">SLOW TIDE</text></g>
+      <g id="paddle" class="outlined"><path d="M-58 0H205" fill="none" stroke="#795e40" stroke-width="8"/><path d="M195-12Q224-18 250-10Q261 0 250 10Q224 18 195 12Z" fill="#e1b575"/><path d="M207 0h39" stroke="#b78853" stroke-width="2"/></g>
+      <g id="splash" fill="none" stroke="#fff3d7" stroke-width="3"><ellipse rx="32" ry="6"/><path d="M-17-8l-5-7M6-12l2-9M22-8l9-9"/></g>
       <g id="bell-rings" opacity="0" fill="none" stroke="#b8893e" stroke-width="3" stroke-linecap="round"><path d="M735 281q9 5 9 13M741 269q18 7 18 23M704 282l-6-8"/></g>
       <g id="foreground"><use href="#grass" x="100" y="622"/><use href="#grass" transform="translate(1045 633) scale(1.2)"/><use href="#grass" x="1300" y="622"/><use href="#grass" transform="translate(2245 633) scale(1.2)"/><path d="M274 629q13-19 27 0m479-8q9-12 19 0M1474 629q13-19 27 0m479-8q9-12 19 0" fill="#a8b58b"/></g>
-      <rect width="1200" height="640" fill="url(#grain)" pointer-events="none"/>
+      <g id="season-particles"></g><rect id="night-tint" width="1200" height="640" fill="#122b37" opacity="0" pointer-events="none"/><g id="weather-particles" pointer-events="none"></g><g id="fog" fill="#e0e7d9" pointer-events="none"><path d="M-200 311Q350 220 1400 340V435Q500 340-200 419Z" opacity=".2"/><path d="M-200 490Q400 401 1400 500V583Q500 505-200 590Z" opacity=".25"/></g><rect width="1200" height="640" fill="url(#grain)" pointer-events="none"/>
     </svg>
-    <span class="scene-caption" aria-hidden="true">Life is better in the slow lane.</span>
-  </div>
-
-  <section class="controls" aria-label="动画控制">
-    <button id="toggle" class="primary" type="button" aria-label="暂停动画"><svg viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path id="toggle-icon" d="M4 3h3v10H4zM9 3h3v10H9z"/></svg><span id="toggle-label">歇一会儿</span></button>
-    <div class="speed-control"><label for="speed">骑行速度</label><input id="speed" type="range" min="0.5" max="2" step="0.25" value="1" aria-valuetext="1 倍速"><output id="speed-value" for="speed">1.0×</output></div>
-    <button id="bell" class="bell" type="button" aria-label="按车铃，播放叮叮声"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M4 13h12L14 10V7a4 4 0 0 0-8 0v3Zm4 3h4M10 1v2M2 4 1 7m17-3 1 3"/></svg>叮铃铃</button>
-    <span id="announcement" class="sr-only" role="status"></span>
-  </section>
-  <footer><span>不赶时间，只赶海风。</span><span class="footer-right">A LITTLE RIDE, A LITTLE JOY.</span></footer>
-  <noscript><p>请启用 JavaScript 播放动画；当前显示的是静态插画。</p></noscript>
-</main>
-<script>
-(() => {
-  'use strict';
-  const $ = id => document.getElementById(id);
-  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  let playing = !reducedMotion.matches, speed = 1, elapsed = 0, previous = 0, frame = 0;
-  let bellUntil = 0, audio;
-  const parts = Object.fromEntries(['rear-spokes','front-spokes','crank','body','wing','eye','scarf-tail','scarf-fold','clouds','gulls','ripples','shore','road','foreground','bell-rings'].map(id => [id,$(id)]));
-  const legs = ['far','near'].map(side => ({ line:$(side+'-leg-line'), color:$(side+'-leg-color'), foot:$(side+'-foot'), toes:$(side+'-toes'), pedal:$(side+'-pedal') }));
-  const transform = (id, value) => parts[id].setAttribute('transform',value);
-
-  function drawLeg(index, angle, bob) {
-    const leg = legs[index], px = 594 + Math.cos(angle)*31, py = 480 + Math.sin(angle)*31;
-    const hx = index ? 572 : 555, hy = 334 + bob;
-    const ax = px-10, ay = py-11, dx = ax-hx, dy = ay-hy, distance = Math.hypot(dx,dy);
-    // A two-segment leg bends at the knee while its ankle follows the pedal.
-    const bend = Math.sqrt(Math.max(0,94*94-distance*distance/4));
-    const kx = (hx+ax)/2+dy/distance*bend, ky = (hy+ay)/2-dx/distance*bend;
-    const line = `M${hx} ${hy}L${kx} ${ky}L${ax} ${ay}`;
-    leg.line.setAttribute('d',line);
-    if (leg.color) leg.color.setAttribute('d',line);
-    leg.foot.setAttribute('d',`M${ax-5} ${ay-5}Q${ax+3} ${ay-12} ${ax+8} ${ay-1}L${px+22} ${py-1}L${px+16} ${py+3}L${px+5} ${py+1}L${px-1} ${py+4}L${px-17} ${py}Z`);
-    if (leg.toes) leg.toes.setAttribute('d',`M${px-3} ${py-6}L${px+5} ${py+1}M${px+3} ${py-6}L${px+16} ${py+3}`);
-    leg.pedal.setAttribute('d',`M${px-17} ${py+5}H${px+19}`);
-  }
-
-  function draw(t) {
-    const angle = t*3.3, bob = Math.sin(angle*2)*2, wheelDegrees = t*170/88*180/Math.PI;
-    transform('rear-spokes',`rotate(${wheelDegrees})`);
-    transform('front-spokes',`rotate(${wheelDegrees})`);
-    transform('crank',`translate(594 480) rotate(${angle*180/Math.PI})`);
-    transform('body',`translate(0 ${bob})`);
-    // The wing pivots around the handlebar so its tip keeps a steady grip.
-    transform('wing',`rotate(${-bob*.28} 706 315)`);
-    drawLeg(0,angle+Math.PI,bob);
-    drawLeg(1,angle,bob);
-    const flutter = Math.sin(t*7)*7;
-    parts['scarf-tail'].setAttribute('d',`M615 223C587 ${212+flutter} 564 ${234-flutter} 531 ${215+flutter}L538 ${235+flutter}C565 ${252-flutter} 593 ${223+flutter} 620 239Z`);
-    parts['scarf-fold'].setAttribute('d',`M612 229Q575 ${226+flutter} 544 ${231+flutter*.5}`);
-    const blink = t%5.7;
-    transform('eye',`translate(642 151) scale(1 ${blink>5.48 ? Math.max(.08,Math.abs(blink-5.59)/.11) : 1})`);
-    transform('clouds',`translate(${-t*8%1200} 0)`);
-    transform('gulls',`translate(${Math.sin(t*.32)*22} ${Math.sin(t*.85)*3})`);
-    transform('ripples',`translate(${-t*13%1200} 0)`);
-    transform('shore',`translate(${-t*40%1200} 0)`);
-    transform('road',`translate(${-t*170%1200} 0)`);
-    transform('foreground',`translate(${-t*205%1200} 0)`);
-  }
-
-  function tick(now) {
-    frame = 0;
-    if (document.hidden) { previous = 0; return; }
-    const dt = previous ? Math.min((now-previous)/1000,.05) : 0;
-    previous = now;
-    if (playing) { elapsed += dt*speed; draw(elapsed); }
-    const ringing = Math.max(0,(bellUntil-now)/1100);
-    parts['bell-rings'].setAttribute('opacity',String(ringing));
-    transform('bell-rings',`translate(0 ${-6*(1-ringing)})`);
-    if (playing || ringing) frame = requestAnimationFrame(tick);
-    else previous = 0;
-  }
-  function wake() { if (!frame && !document.hidden) { previous = 0; frame = requestAnimationFrame(tick); } }
-  function setPlaying(value) {
-    playing = value;
-    $('toggle-label').textContent = playing ? '歇一会儿' : '继续出发';
-    $('toggle').setAttribute('aria-label',playing ? '暂停动画' : '播放动画');
-    $('toggle-icon').setAttribute('d',playing ? 'M4 3h3v10H4zM9 3h3v10H9z' : 'M4 2l10 6-10 6z');
-    wake();
-  }
-  $('toggle').addEventListener('click',() => setPlaying(!playing));
-  $('speed').addEventListener('input',event => {
-    speed = Number(event.target.value);
-    $('speed-value').value = speed.toFixed(2).replace(/0$/,'')+'×';
-    event.target.setAttribute('aria-valuetext',speed+' 倍速');
-  });
-  $('bell').addEventListener('click',async () => {
-    bellUntil = performance.now()+1100;
-    $('announcement').textContent = '叮铃铃，一路好心情。';
-    wake();
-    try {
-      const Audio = window.AudioContext || window.webkitAudioContext;
-      if (!Audio) return;
-      audio ||= new Audio();
-      await audio.resume();
-      for (const delay of [0,.16]) {
-        const start = audio.currentTime+delay;
-        for (const [frequency,volume] of [[1568,.12],[2352,.035]]) {
-          const oscillator = audio.createOscillator(), gain = audio.createGain();
-          oscillator.frequency.value = frequency;
-          gain.gain.setValueAtTime(0,start);
-          gain.gain.linearRampToValueAtTime(volume,start+.006);
-          gain.gain.exponentialRampToValueAtTime(.0001,start+.7);
-          oscillator.connect(gain); gain.connect(audio.destination);
-          oscillator.start(start); oscillator.stop(start+.72);
-          oscillator.onended = () => { oscillator.disconnect(); gain.disconnect(); };
-        }
-      }
-    } catch { $('announcement').textContent = '叮铃铃。当前浏览器无法播放声音。'; }
-  });
-  document.addEventListener('visibilitychange',() => {
-    if (document.hidden) { cancelAnimationFrame(frame); frame = 0; previous = 0; }
-    else wake();
-  });
-  reducedMotion.addEventListener('change',event => { if (event.matches) setPlaying(false); });
-  draw(0);
-  setPlaying(playing);
-})();
-</script>
-</body>
-</html>
+<div class="scene-caption" aria-hidden="true">Life is better in the slow lane.</div></div>
+<div class="motion-controls"><button id="toggle" type="button" class="primary" aria-label="暂停运动"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path id="toggle-icon" d="M4 3h3v10H4zM9 3h3v10H9z"/></svg><span id="toggle-label">歇一会儿</span></button><div class="motion-speed"><label for="motion-speed">运动速度</label><input id="motion-speed" type="range" min="0.25" max="2" step="0.25" value="1"><output id="motion-speed-value" for="motion-speed">1×</output></div><button type="button" id="bell" class="quiet" aria-label="按响车铃"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 13h12L14 10V7a4 4 0 0 0-8 0v3Zm4 3h4M10 1v2"/></svg><span id="bell-label">叮铃铃</span></button></div>
+<section class="time-desk" aria-labelledby="time-title"><div class="time-header"><div><span class="eyebrow" id="time-title">把一天拨到喜欢的时刻</span><div class="clock"><output id="clock" for="time" aria-live="off">10:30</output><span id="period">白天</span></div></div><button id="auto-day" type="button" aria-pressed="false"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16 7a6 6 0 0 0-10-3L3 7m0-5v5h5M4 13a6 6 0 0 0 10 3l3-3m0 5v-5h-5"/></svg><span>自动循环</span></button></div><label class="sr-only" for="time">一天中的时间</label><input id="time" type="range" min="0" max="1439" step="1" value="630"><div class="time-ruler" aria-hidden="true"><span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>24:00</span></div><div class="time-bottom"><div><label for="day-speed">时间流速</label><select id="day-speed"><option value="0.25">0.25×</option><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option><option value="4">4×</option></select></div><span id="day-duration">2 分钟 / 天</span></div><p class="hint">拖动时间会暂停自动循环。时间流速与运动速度独立。</p></section>
+</section>
+<aside class="editor" aria-label="角色和场景设置"><div class="editor-heading"><span class="eyebrow">你的海岸小剧场</span><span class="small-flower" aria-hidden="true">✳</span></div><div class="tabs" role="tablist" aria-label="定制内容"><button id="tab-character" type="button" role="tab" aria-selected="true" aria-controls="panel-character" data-tab="character">角色</button><button id="tab-outfit" type="button" role="tab" aria-selected="false" tabindex="-1" aria-controls="panel-outfit" data-tab="outfit">穿搭</button><button id="tab-world" type="button" role="tab" aria-selected="false" tabindex="-1" aria-controls="panel-world" data-tab="world">世界</button></div>
+<section id="panel-character" role="tabpanel" aria-labelledby="tab-character"><h2>来一位什么旅伴？</h2><p class="panel-intro">头、身和腿，都可以有自己的想法。</p><div class="part-fields"><label for="head"><span class="field-number">01</span>头部<select id="head" data-choice="head"></select></label><label for="body"><span class="field-number">02</span>身体<select id="body" data-choice="body"></select></label><label for="legs"><span class="field-number">03</span>腿部<select id="legs" data-choice="legs"></select></label></div><p class="field-title">也可以先选一整套</p><div class="presets" id="presets" role="group" aria-label="整套生物预设"></div><button id="shuffle" type="button" class="shuffle"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M2 5h3l10 10h3m-3-3 3 3-3 3M2 15h3l10-10h3m-3-3 3 3-3 3"/></svg>随机一位旅伴</button><div class="editor-note"><span class="note-dot"></span><p>混搭没有标准答案。<br>运动切换时，会保留你的搭配。</p></div></section>
+<section id="panel-outfit" role="tabpanel" aria-labelledby="tab-outfit" hidden><h2>今天这样出门。</h2><p class="panel-intro">哪怕是一只熊，也有自己的衣橱。</p><div class="outfit-fields"><label for="hair">发型<select id="hair" data-choice="hair"><option value="none">自然模样</option><option value="quiff">翘翘短发</option><option value="bob">齐耳短发</option><option value="pony">小马尾</option><option value="curls">蓬松卷发</option></select></label><label for="clothes">服装<select id="clothes" data-choice="clothes"><option value="none">轻装上阵</option><option value="tee">短袖 T 恤</option><option value="sweater">针织毛衣</option><option value="raincoat">长袖雨衣</option><option value="vest">户外救生衣</option></select></label><label for="shoes">鞋子<select id="shoes" data-choice="shoes"><option value="natural">原生脚掌</option><option value="sneakers">帆布运动鞋</option><option value="boots">长筒雨靴</option><option value="sandals">海边凉鞋</option></select></label></div><p class="field-title">衣服颜色</p><div id="colors" class="swatches" role="group" aria-label="服装颜色"></div><p class="field-title">配饰 · 可以叠加</p><div class="accessories"><label><input id="wear-scarf" type="checkbox" checked data-accessory="scarf">飘飘围巾</label><label><input id="wear-glasses" type="checkbox" data-accessory="glasses">圆框眼镜</label><label><input id="wear-hat" type="checkbox" data-accessory="hat">海边草帽</label><label><input id="wear-backpack" type="checkbox" data-accessory="backpack">小小背包</label></div></section>
+<section id="panel-world" role="tabpanel" aria-labelledby="tab-world" hidden><h2>让世界换个心情。</h2><p class="panel-intro">春天也可以下雪。这里由你说了算。</p><p class="field-title">季节</p><div class="seasons" role="group" aria-label="季节"><button type="button" data-season="spring" aria-pressed="false"><span class="season-swatch spring"></span>春<span>花开有信</span></button><button type="button" data-season="summer" aria-pressed="true"><span class="season-swatch summer"></span>夏<span>海风正好</span></button><button type="button" data-season="autumn" aria-pressed="false"><span class="season-swatch autumn"></span>秋<span>落叶慢慢</span></button><button type="button" data-season="winter" aria-pressed="false"><span class="season-swatch winter"></span>冬<span>银白海岸</span></button></div><p class="field-title">天气</p><div class="weathers" role="group" aria-label="天气"><button type="button" data-weather="clear" aria-pressed="true">晴天</button><button type="button" data-weather="cloudy" aria-pressed="false">多云</button><button type="button" data-weather="rain" aria-pressed="false">下雨</button><button type="button" data-weather="snow" aria-pressed="false">飘雪</button><button type="button" data-weather="fog" aria-pressed="false">薄雾</button></div><div class="editor-note"><span class="note-dot"></span><p>用时间滑块追日落。<br>开启自动循环，看星星慢慢亮起。</p></div></section>
+<div class="editor-footer"><button type="button" id="reset" class="text-button">↺ 回到最初</button><span>随意搭配，自在出发</span></div></aside>
+</div>
+<footer><span id="combination">鹈鹕头 · 鹈鹕身 · 鹈鹕腿</span><span>不赶时间，只赶海风。</span><span class="footer-right">A LITTLE PLAY, A LITTLE JOY.</span></footer>
+<p id="announcement" class="sr-only" role="status"></p><noscript><p>请启用 JavaScript，开始拼搭角色和探索海岸。</p></noscript>
+</main></body></html>

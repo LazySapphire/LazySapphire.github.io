@@ -80,6 +80,13 @@ scripts/check-production-artifacts.sh public
 
 作品设置 `direct_play: true` 时，栏目标题直接打开 `play_url`，制作记录保留单独按钮。《顺风，慢行》的独立 HTML 保持原始设计，不注入站点主题或导航。
 
+《顺风，慢行》v2 支持六种生物的头 / 身 / 腿混搭、独立穿搭、自行车 / 跑步 / 划艇、四季与五种天气。昼夜时钟与运动速度独立，1× 下 120 秒循环一天；手动拨动时间会暂停自动循环。`motion.js` 提供运动和时间纯函数，`studio.js` 负责 SVG 与控件，`studio.css` 保留独立视觉风格；离线使用时保存整个游戏目录。
+
+```bash
+node --test scripts/tests/pelican-bicycle.cjs
+```
+
+
 首款游戏《回声实验室》v2 有 25 个自由选择的房间、5 个章节；`levels.js` 是关卡数据，`core.js` 负责确定性的共享物理与输入回放，`game.js` 负责显示和操作。每个关卡必须有正常输入的通关验证，修改机制时补上相应回归。测试：
 
 ```bash
