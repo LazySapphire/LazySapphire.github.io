@@ -1,19 +1,26 @@
 (function (root) {
   'use strict';
   const TAU = Math.PI * 2;
-  const DAY_SECONDS = 120;
+  const DAY_SECONDS = 60;
+  const MOTION_RATE = 2;
   const species = {
-    pelican: { name: '鹈鹕', color: '#fbf6e4', leg: '#d6ab57', width: 10, arm: 25, hair: [20,-113], eye: [33,-89], scarf: [15,-39] },
-    human: { name: '人', color: '#ecc49d', leg: '#d7a779', width: 17, arm: 17, hair: [12,-79], eye: [29,-47], scarf: [12,4] },
-    cat: { name: '猫', color: '#dca96e', leg: '#dca96e', width: 19, arm: 22, hair: [9,-76], eye: [27,-40], scarf: [12,4] },
-    rabbit: { name: '兔子', color: '#ece6db', leg: '#ded7cd', width: 20, arm: 23, hair: [8,-79], eye: [30,-42], scarf: [12,4] },
-    bear: { name: '熊', color: '#a37d59', leg: '#9b7450', width: 26, arm: 28, hair: [11,-73], eye: [26,-43], scarf: [12,4] },
-    fox: { name: '狐狸', color: '#d68450', leg: '#9b674a', width: 17, arm: 21, hair: [5,-78], eye: [25,-41], scarf: [12,4] }
+    pelican: { name: '鹈鹕', color: '#fbf6e4', leg: '#d6ab57', hair: [20,-113], eye: [33,-89], scarf: [15,-39] },
+    human: { name: '人', color: '#ecc49d', leg: '#d7a779', hair: [12,-79], eye: [29,-47], scarf: [12,4] },
+    cat: { name: '猫', color: '#dca96e', leg: '#dca96e', hair: [9,-76], eye: [27,-40], scarf: [12,4] },
+    rabbit: { name: '兔子', color: '#ece6db', leg: '#ded7cd', hair: [8,-79], eye: [30,-42], scarf: [12,4] },
+    bear: { name: '熊', color: '#a37d59', leg: '#9b7450', hair: [11,-73], eye: [26,-43], scarf: [12,4] },
+    fox: { name: '狐狸', color: '#d68450', leg: '#9b674a', hair: [5,-78], eye: [25,-41], scarf: [12,4] }
   };
-  const defaults = { head:'pelican', body:'pelican', legs:'pelican', hair:'none', clothes:'none', color:'#d97550', shoes:'natural', scarf:true, glasses:false, hat:false, backpack:false, activity:'cycling', season:'summer', weather:'clear', motionSpeed:1, daySpeed:1, autoDay:false, playing:true };
+  Object.assign(species, {
+    dog:{name:'狗',color:'#c7a176',leg:'#c7a176',hair:[9,-78],eye:[28,-41],scarf:[12,4]},
+    panda:{name:'熊猫',color:'#f1efdd',leg:'#50655c',hair:[9,-79],eye:[27,-43],scarf:[12,4]},
+    frog:{name:'青蛙',color:'#97b57c',leg:'#8baa72',hair:[8,-62],eye:[27,-58],scarf:[12,4]},
+    penguin:{name:'企鹅',color:'#506974',leg:'#d9a859',hair:[11,-86],eye:[30,-48],scarf:[12,4]}
+  });
+  const defaults = { head:'pelican', body:'pelican', legs:'pelican', hair:'none', clothes:'none', color:'#d97550', shoes:'natural', scarf:true, glasses:false, hat:false, backpack:false, activity:'cycling', scene:'coast', season:'summer', weather:'clear', motionSpeed:1, daySpeed:1, autoDay:false, playing:true };
   const mod = (n,d) => ((n%d)+d)%d;
   function advance(clock, dt, state) {
-    if (state.playing) clock.motion += dt * state.motionSpeed;
+    if (state.playing) clock.motion += dt * state.motionSpeed * MOTION_RATE;
     if (state.autoDay) clock.hour = mod(clock.hour + dt * 24 / DAY_SECONDS * state.daySpeed,24);
     if (!state.reduceMotion || state.playing) clock.weather += dt;
     return clock;
@@ -27,7 +34,7 @@
     const a=degrees*Math.PI/180,c=Math.cos(a),s=Math.sin(a);
     return [origin[0]+point[0]*c-point[1]*s,origin[1]+point[0]*s+point[1]*c];
   }
-  function pose(activity,t) {
+  function pose(activity,t,legStyle={split:.5,hock:[0,0]}) {
     let hip, tilt, feet, hands, paddle=null, legLength=94;
     if (activity==='running') {
       const p=mod(t*.72,1);
@@ -54,8 +61,10 @@
       hands=[[703,315],[716,312]];
     }
     const legs=feet.map((foot,i)=> {
-      const start=[hip[0]+(i?7:-9),hip[1]],end=[foot.point[0]-10,foot.point[1]-12];
-      return {start,end,knee:joint(start,end,legLength,legLength),foot};
+      const start=local(hip,[i?7:-9,0],tilt),end=local(foot.point,[-10,-12],foot.angle);
+      const upperLength=2*legLength*legStyle.split,lowerLength=2*legLength*(1-legStyle.split);
+      const hock=legStyle.hock.some(v=>v!==0)?[end[0]+legStyle.hock[0],end[1]+legStyle.hock[1]]:null;
+      return {start,end,hock,knee:joint(start,hock||end,upperLength,lowerLength),foot,upperLength,lowerLength};
     });
     const arms=hands.map((end,i)=> {
       const start=local(hip,[i?13:32,-66],tilt);
@@ -68,7 +77,7 @@
     return `${String(Math.floor(minutes/60)).padStart(2,'0')}:${String(minutes%60).padStart(2,'0')}`;
   }
   function period(hour) { return hour<5?'深夜':hour<8?'清晨':hour<16?'白天':hour<19?'黄昏':'夜晚'; }
-  const api={DAY_SECONDS,species,defaults,mod,advance,joint,local,pose,formatTime,period};
+  const api={DAY_SECONDS,MOTION_RATE,species,defaults,mod,advance,joint,local,pose,formatTime,period};
   if (typeof module!=='undefined' && module.exports) module.exports=api;
   else root.CoastMotion=api;
 })(typeof globalThis!=='undefined'?globalThis:this);
