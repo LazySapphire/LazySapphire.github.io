@@ -76,6 +76,10 @@ scripts/check-production-artifacts.sh public
 - 截图：使用游戏实际运行画面，放在对应游戏目录中，同时用于列表和分享预览。
 - 新增游戏时沿用 `echo-lab` 的元数据字段和模板，不必为每个游戏修改全站布局。
 
+栏目也收录互动动画，例如 `/games/pelican-bicycle/` 的《顺风，慢行》。这类作品可以省略 `game_rooms` 和未记录的 `game_model` / `game_reasoning`，使用可选的 `play_label`、`cover_caption` 指定入口文案和封面说明；已有游戏保留默认展示。
+
+作品设置 `direct_play: true` 时，栏目标题直接打开 `play_url`，制作记录保留单独按钮。《顺风，慢行》的独立 HTML 保持原始设计，不注入站点主题或导航。
+
 首款游戏《回声实验室》v2 有 25 个自由选择的房间、5 个章节；`levels.js` 是关卡数据，`core.js` 负责确定性的共享物理与输入回放，`game.js` 负责显示和操作。每个关卡必须有正常输入的通关验证，修改机制时补上相应回归。测试：
 
 ```bash

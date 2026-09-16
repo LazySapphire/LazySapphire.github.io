@@ -8,17 +8,19 @@
     {{ with .Content }}<div class="content prose games-intro">{{ . }}</div>{{ end }}
     <section class="games-catalog" aria-label="可以玩的 AI 小游戏">
       {{ range .RegularPages.ByWeight }}
+        {{ $titleURL := .RelPermalink }}
+        {{ if .Params.direct_play }}{{ $titleURL = .Params.play_url | relURL }}{{ end }}
         <article class="game-card">
-          <a class="game-card-image" href="{{ .Params.play_url | relURL }}" aria-label="开始玩{{ .Title }}">
+          <a class="game-card-image" href="{{ .Params.play_url | relURL }}" aria-label="{{ .Params.play_label | default "开始玩" }}：{{ .Title }}">
             <img src="{{ .Params.cover | relURL }}" alt="{{ .Params.cover_alt | default (printf "%s 游戏实机画面" .Title) }}" width="1120" height="560">
           </a>
           <div class="game-card-copy">
-            <p class="eyebrow">{{ .Params.game_genre }} · {{ .Params.game_rooms }} 个关卡</p>
-            <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+            <p class="eyebrow">{{ .Params.game_genre }}{{ with .Params.game_rooms }} · {{ . }} 个关卡{{ end }}</p>
+            <h2><a href="{{ $titleURL }}">{{ .Title }}</a></h2>
             <p>{{ .Description }}</p>
             <div class="game-badges"><span>浏览器即玩</span><span>键盘 / 触屏</span><span>v{{ .Params.game_version }}</span></div>
-            <div class="hero-actions"><a class="button primary" href="{{ .Params.play_url | relURL }}">开始游戏 →</a><a class="button" href="{{ .RelPermalink }}">制作记录</a></div>
-            <p class="game-card-credit">{{ .Params.game_model }} · {{ .Params.game_reasoning }} · {{ .Date.Format "2006-01-02" }}</p>
+            <div class="hero-actions"><a class="button primary" href="{{ .Params.play_url | relURL }}">{{ .Params.play_label | default "开始游戏" }} →</a><a class="button" href="{{ .RelPermalink }}">制作记录</a></div>
+            <p class="game-card-credit">{{ with .Params.game_model }}{{ . }} · {{ end }}{{ with .Params.game_reasoning }}{{ . }} · {{ end }}{{ .Date.Format "2006-01-02" }}</p>
           </div>
         </article>
       {{ end }}

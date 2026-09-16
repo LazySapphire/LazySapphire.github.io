@@ -226,7 +226,7 @@
         await navigator.clipboard.writeText(button.dataset.gameShare);
         status.textContent = "游玩链接已复制，可以发给朋友了。";
       } catch (error) {
-        status.textContent = "可以长按或右键「开始游戏」按钮，复制链接地址。";
+        status.textContent = "可以长按或右键上方的作品入口按钮，复制链接地址。";
       } finally {
         button.disabled = false;
       }
